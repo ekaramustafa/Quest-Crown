@@ -13,15 +13,18 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
+    private Collider2D col;
 
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] private float jumpSpeed = 10f;
+    [SerializeField] private LayerMask groundLayerMask;
     
     
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
+        col = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
@@ -38,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputValue inputValue)
     {
-        if (inputValue.isPressed && rb.velocity.y == 0)
+        if (inputValue.isPressed && col.IsTouchingLayers(groundLayerMask))
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
         }

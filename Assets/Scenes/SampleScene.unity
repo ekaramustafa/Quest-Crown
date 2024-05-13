@@ -4522,45 +4522,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 2490025515873800705, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6115724017377638054, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_Size.x
-      value: 0.5178876
-      objectReference: {fileID: 0}
-    - target: {fileID: 6115724017377638054, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_Size.y
-      value: 0.8854867
-      objectReference: {fileID: 0}
-    - target: {fileID: 6115724017377638054, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.03962207
-      objectReference: {fileID: 0}
-    - target: {fileID: 6115724017377638054, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_Offset.y
-      value: -0.071513
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
---- !u!1 &2340953566159149176 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2340953566008397037, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-  m_PrefabInstance: {fileID: 2340953566159149175}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2340953566159149184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2340953566159149176}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a315d68936a1f534abc07cd0d4a34281, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3415196374109399118
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4571,6 +4534,10 @@ PrefabInstance:
     - target: {fileID: 3415196373455278128, guid: eb949d4e7b612894f8441e20c0ba231d, type: 3}
       propertyPath: m_Name
       value: Platforms Tilemap
+      objectReference: {fileID: 0}
+    - target: {fileID: 3415196373455278128, guid: eb949d4e7b612894f8441e20c0ba231d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3415196373455278129, guid: eb949d4e7b612894f8441e20c0ba231d, type: 3}
       propertyPath: m_RootOrder
