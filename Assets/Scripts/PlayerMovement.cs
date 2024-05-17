@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
-    private Collider2D col;
+    private CapsuleCollider2D col;
 
 
     [Header("Tunable Params")]
@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        col = GetComponent<Collider2D>();
+        col = GetComponent<CapsuleCollider2D>();
         gravityScaleAtStart = rb.gravityScale;
     }
 
