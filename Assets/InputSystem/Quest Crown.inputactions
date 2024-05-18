@@ -256,7 +256,7 @@
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard&Mouse",
+                    "groups": "Joystick;Gamepad",
                     "action": "Join",
                     "isComposite": false,
                     "isPartOfComposite": false

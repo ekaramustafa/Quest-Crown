@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         col = GetComponent<CapsuleCollider2D>();
         gravityScaleAtStart = rb.gravityScale;
+       
     }
 
     // Update is called once per frame
