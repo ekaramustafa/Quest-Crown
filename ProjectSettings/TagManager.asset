@@ -8,15 +8,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - P1CAM
   - Water
   - UI
+  - P2CAM
   - Platforms
-  - Climb
-  - Player
+  - 'Climb '
+  - 'Player '
   - Background
   - Bouncing
-  - 
   - 
   - 
   - 

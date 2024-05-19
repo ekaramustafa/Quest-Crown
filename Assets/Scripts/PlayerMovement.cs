@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
     private CapsuleCollider2D col;
 
+    private PlayerInput playerInput;
 
     [Header("Tunable Params")]
     [SerializeField] private float walkSpeed = 10f;
@@ -25,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Masks")]
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private LayerMask climbingLayerMask;
-    
+
     
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         col = GetComponent<CapsuleCollider2D>();
+        playerInput = GetComponent<PlayerInput>();
         gravityScaleAtStart = rb.gravityScale;
        
     }
@@ -56,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
         }
+    }
+
+    private void OnJoin(InputValue inputValue)
+    {
+        GameManager.GetInstance().PlayerCount++;
     }
 
 

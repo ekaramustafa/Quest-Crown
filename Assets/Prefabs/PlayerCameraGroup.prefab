@@ -98,6 +98,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315987816003551242}
   - component: {fileID: 315987816003551241}
+  - component: {fileID: 5468438735103953860}
   m_Layer: 0
   m_Name: StateDrivenCamerasPlayer1
   m_TagString: Untagged
@@ -146,10 +147,7 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 2602554894225357036}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras:
-  - {fileID: 315987817269177715}
-  - {fileID: 315987817696479076}
-  - {fileID: 315987816196227187}
+  m_ChildCameras: []
   m_Instructions:
   - m_FullHash: 874836497
     m_VirtualCamera: {fileID: 315987817696479076}
@@ -180,6 +178,24 @@ MonoBehaviour:
     m_ParentHash: 756556552
   - m_Hash: -1813075869
     m_ParentHash: 756556552
+--- !u!114 &5468438735103953860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315987816003551240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ff3f68485b2d694b99246d353dade5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cinemachineVirtualCameras:
+  - {fileID: 315987817269177715}
+  - {fileID: 315987817696479076}
+  - {fileID: 315987816196227187}
+  playerCamera: {fileID: 315987816486818020}
+  player: {fileID: 2602554894225356819}
 --- !u!1 &315987816196227186
 GameObject:
   m_ObjectHideFlags: 0
@@ -334,7 +350,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 2147483647
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -668,7 +684,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &315987817444813276
 Transform:
   m_ObjectHideFlags: 0
@@ -787,10 +803,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 315987816486818020}
-    - target: {fileID: 780574586581744260, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_NeverAutoSwitchControlSchemes
-      value: 1
-      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 315987817444813276}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -838,6 +854,10 @@ PrefabInstance:
     - target: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
