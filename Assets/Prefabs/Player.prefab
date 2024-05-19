@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 780574586581744260}
   - component: {fileID: 780574586581744263}
   - component: {fileID: 780574586581744262}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
+  m_NeverAutoSwitchControlSchemes: 1
   m_DefaultControlScheme: Keyboard&Mouse
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
@@ -198,6 +198,7 @@ MonoBehaviour:
   climbingLayerMask:
     serializedVersion: 2
     m_Bits: 128
+  playerPrefab: {fileID: 0}
 --- !u!70 &780574586581744262
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
