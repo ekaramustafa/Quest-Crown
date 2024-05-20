@@ -6,11 +6,13 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    //Animation string variables 
     private const string IS_WALKING = "IsWalking";
     private const string IS_CLIMBING = "IsClimbing";
+    private const string DYING = "Dying";
 
     private float gravityScaleAtStart;
+    private bool isAlive;
 
     private Vector2 moveInput;
     private Rigidbody2D rb;
@@ -26,6 +28,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Masks")]
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private LayerMask climbingLayerMask;
+    [SerializeField] private LayerMask enemiesLayerMask;
+
+
 
     
     private void Awake()
@@ -36,15 +41,27 @@ public class PlayerMovement : MonoBehaviour
         col = GetComponent<CapsuleCollider2D>();
         playerInput = GetComponent<PlayerInput>();
         gravityScaleAtStart = rb.gravityScale;
+        isAlive = true;
        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isAlive) return;
         Walk();
         FlipSprite();
         Climb();
+        Die();
+    }
+
+    private void Die()
+    {
+        if (rb.IsTouchingLayers(enemiesLayerMask))
+        {
+            isAlive = false;
+            animator.SetTrigger(DYING);
+        }
     }
 
     private void OnMove(InputValue inputValue)
@@ -54,6 +71,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnJump(InputValue inputValue)
     {
+        if (!isAlive) return;
         if (inputValue.isPressed && col.IsTouchingLayers(groundLayerMask))
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
@@ -123,6 +141,8 @@ public class PlayerMovement : MonoBehaviour
         bool playerHasHorizantalSpeed = Math.Abs(rb.velocity.x) > Mathf.Epsilon;
         return playerHasHorizantalSpeed;
     }
+
+  
 
 
 }
