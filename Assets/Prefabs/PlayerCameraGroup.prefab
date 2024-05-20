@@ -147,7 +147,10 @@ MonoBehaviour:
   m_AnimatedTarget: {fileID: 2602554894225357036}
   m_LayerIndex: 0
   m_ShowDebugText: 0
-  m_ChildCameras: []
+  m_ChildCameras:
+  - {fileID: 315987817269177715}
+  - {fileID: 315987817696479076}
+  - {fileID: 315987816196227187}
   m_Instructions:
   - m_FullHash: 874836497
     m_VirtualCamera: {fileID: 315987817696479076}
@@ -684,7 +687,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &315987817444813276
 Transform:
   m_ObjectHideFlags: 0
@@ -807,6 +810,18 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 315987817444813276}
+    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: groundLayerMask.m_Bits
+      value: 192
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: enemiesLayerMask.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: climbingLayerMask.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_RootOrder
       value: 2

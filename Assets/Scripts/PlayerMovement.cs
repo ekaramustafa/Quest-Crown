@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Die()
     {
-        if (rb.IsTouchingLayers(enemiesLayerMask))
+        if (col.IsTouchingLayers(enemiesLayerMask))
         {
             isAlive = false;
             animator.SetTrigger(DYING);
