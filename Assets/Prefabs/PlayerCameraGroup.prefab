@@ -181,6 +181,8 @@ MonoBehaviour:
     m_ParentHash: 756556552
   - m_Hash: -1813075869
     m_ParentHash: 756556552
+  - m_Hash: -1752896643
+    m_ParentHash: 756556552
 --- !u!114 &5468438735103953860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +317,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 315987816486818041}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0871439, y: 0.0000538826, z: -10}
+  m_LocalPosition: {x: 1.8652658, y: 0.42846918, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -349,7 +351,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -806,6 +808,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 315987816486818020}
+    - target: {fileID: 780574586581744262, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: playerPrefab
       value: 
@@ -872,10 +878,42 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 780574586581744262, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+--- !u!1 &315987816973370205 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+  m_PrefabInstance: {fileID: 3371799261223535258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!61 &1192505042659374966
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315987816973370205}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 1fc21441cab27da4482f1874791d3f4d, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0048851967, y: -0.44404143}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.29725552, y: 0.11191714}
+  m_EdgeRadius: 0
 --- !u!4 &2602554894225356819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}

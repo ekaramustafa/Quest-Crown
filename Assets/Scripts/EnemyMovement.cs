@@ -9,13 +9,10 @@ public class EnemyMovement : MonoBehaviour
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
 
-    private float direction;
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        direction = 1f;
     }
 
     private void Update()

@@ -17,7 +17,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
-    private CapsuleCollider2D col;
+    private CapsuleCollider2D bodyCol;
+    private BoxCollider2D footCol;
 
     private PlayerInput playerInput;
 
@@ -38,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
-        col = GetComponent<CapsuleCollider2D>();
+        bodyCol = GetComponent<CapsuleCollider2D>();
+        footCol = GetComponent<BoxCollider2D>();
         playerInput = GetComponent<PlayerInput>();
         gravityScaleAtStart = rb.gravityScale;
         isAlive = true;
@@ -57,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Die()
     {
-        if (col.IsTouchingLayers(enemiesLayerMask))
+        if (bodyCol.IsTouchingLayers(enemiesLayerMask))
         {
             isAlive = false;
             animator.SetTrigger(DYING);
@@ -72,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnJump(InputValue inputValue)
     {
         if (!isAlive) return;
-        if (inputValue.isPressed && col.IsTouchingLayers(groundLayerMask))
+        if (inputValue.isPressed && footCol.IsTouchingLayers(groundLayerMask))
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
         }
@@ -101,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Climb()
     {
-        if (!col.IsTouchingLayers(climbingLayerMask))
+        if (!bodyCol.IsTouchingLayers(climbingLayerMask))
         {
             animator.SetBool(IS_CLIMBING, false);
             rb.gravityScale = gravityScaleAtStart;
@@ -112,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = climbVelocity;
         rb.gravityScale = 0f;
 
-        if (HasVerticalSpeed() && col.IsTouchingLayers(climbingLayerMask))
+        if (HasVerticalSpeed() && bodyCol.IsTouchingLayers(climbingLayerMask))
         {
             animator.SetBool(IS_CLIMBING, true);
 
