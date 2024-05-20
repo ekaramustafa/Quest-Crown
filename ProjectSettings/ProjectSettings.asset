@@ -656,11 +656,11 @@ PlayerSettings:
     m_VersionName: 
   apiCompatibilityLevel: 6
   activeInputHandler: 1
-  cloudProjectId: 
+  cloudProjectId: 032c4ed7-9e65-42ae-8e89-3cf619db9cb4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: 
-  organizationId: 
+  projectName: Quest Crown
+  organizationId: ebu_bekir
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   playerDataPath: 

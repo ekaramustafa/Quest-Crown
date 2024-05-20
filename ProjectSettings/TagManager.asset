@@ -8,16 +8,16 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - P1CAM
+  - 
   - Water
   - UI
-  - P2CAM
+  - 
   - Platforms
   - 'Climb '
   - 'Player '
   - Background
   - Bouncing
-  - 
+  - Enemies
   - 
   - 
   - 
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Ladders
     uniqueID: 1145223605
+    locked: 0
+  - name: Enemies
+    uniqueID: 1142279941
     locked: 0
   - name: Player
     uniqueID: 3121927161
