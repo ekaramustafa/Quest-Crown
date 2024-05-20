@@ -63,6 +63,9 @@ public class PlayerMovement : MonoBehaviour
         {
             isAlive = false;
             animator.SetTrigger(DYING);
+            bodyCol.enabled = false;
+            footCol.enabled = false;
+            rb.bodyType = RigidbodyType2D.Static;
         }
     }
 
