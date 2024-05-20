@@ -1,2 +1,3 @@
 # Quest-Crown
-2D Mobile Platform Game
+Split-screen 2D Mobile Platform Game
+Ongoing
