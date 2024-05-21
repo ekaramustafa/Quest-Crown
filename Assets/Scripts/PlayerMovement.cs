@@ -14,13 +14,11 @@ public class PlayerMovement : MonoBehaviour
     private float gravityScaleAtStart;
     private bool isAlive;
 
-    private Vector2 moveInput;
     private Rigidbody2D rb;
     private Animator animator;
     private CapsuleCollider2D bodyCol;
     private BoxCollider2D footCol;
 
-    private PlayerInput playerInput;
     private InputManager inputManager;
 
     [Header("Tunable Params")]
@@ -42,7 +40,6 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         bodyCol = GetComponent<CapsuleCollider2D>();
         footCol = GetComponent<BoxCollider2D>();
-        playerInput = GetComponent<PlayerInput>();
         gravityScaleAtStart = rb.gravityScale;
         isAlive = true;
        
@@ -51,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         inputManager = InputManager.GetInstance();
-        inputManager.OnJoin += OnJoinPerformed;
         inputManager.OnJump += OnJumpPerformed;
     }
 
@@ -62,11 +58,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
         }
-    }
-
-    private void OnJoinPerformed(object sender, EventArgs e)
-    {
-        GameManager.GetInstance().PlayerCount++;
     }
 
     // Update is called once per frame
@@ -90,31 +81,8 @@ public class PlayerMovement : MonoBehaviour
             rb.velocity = deathKick;
             bodyCol.enabled = false;
             footCol.enabled = false;
-            //rb.bodyType = RigidbodyType2D.Static;
         }
     }
-
-    /*
-    private void OnMove(InputValue inputValue)
-    {
-        moveInput = inputValue.Get<Vector2>();
-    }
-
-    private void OnJump(InputValue inputValue)
-    {
-        if (!isAlive) return;
-        if (inputValue.isPressed && footCol.IsTouchingLayers(groundLayerMask))
-        {
-            rb.velocity += new Vector2(0f, jumpSpeed);
-        }
-    }
-
-    private void OnJoin(InputValue inputValue)
-    {
-        GameManager.GetInstance().PlayerCount++;
-    }
-    */
-
 
     private void Walk()
     {
@@ -155,8 +123,6 @@ public class PlayerMovement : MonoBehaviour
             animator.SetBool(IS_CLIMBING, false);
         }
     }
-
-
 
     private void FlipSprite()
     {

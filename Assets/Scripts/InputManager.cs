@@ -16,6 +16,11 @@ public class InputManager : MonoBehaviour
     public event EventHandler OnJump;
     public event EventHandler OnJoin;
 
+    public static InputManager GetInstance()
+    {
+        return instance;
+    }
+
 
     private void Awake()
     {
@@ -57,19 +62,6 @@ public class InputManager : MonoBehaviour
         return inputVector;
     }
 
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public static InputManager GetInstance()
-    {
-        return instance;
-    }
+ 
 }
