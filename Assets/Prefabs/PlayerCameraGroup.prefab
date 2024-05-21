@@ -821,6 +821,10 @@ PrefabInstance:
       value: 192
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: hazardLayerMask.m_Bits
+      value: 8192
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: enemiesLayerMask.m_Bits
       value: 4096
       objectReference: {fileID: 0}
