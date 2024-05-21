@@ -26,14 +26,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float climbSpeed = 10f;
+    [SerializeField] private Vector2 deathKick = new Vector3(10f,10f);
+
     [Header("Masks")]
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private LayerMask climbingLayerMask;
     [SerializeField] private LayerMask enemiesLayerMask;
+    [SerializeField] private LayerMask hazardLayerMask;
 
-
-
-    
     private void Awake()
     {
 
@@ -63,9 +63,16 @@ public class PlayerMovement : MonoBehaviour
         {
             isAlive = false;
             animator.SetTrigger(DYING);
+            rb.velocity = deathKick;
             bodyCol.enabled = false;
             footCol.enabled = false;
-            rb.bodyType = RigidbodyType2D.Static;
+            //rb.bodyType = RigidbodyType2D.Static;
+        }
+        if (bodyCol.IsTouchingLayers(hazardLayerMask) || footCol.IsTouchingLayers(hazardLayerMask))
+        {
+            isAlive = false;
+            animator.SetTrigger(DYING);
+            rb.velocity = new Vector2(0f,deathKick.y);
         }
     }
 
