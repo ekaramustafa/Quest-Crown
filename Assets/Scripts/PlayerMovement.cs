@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D footCol;
 
     private PlayerInput playerInput;
+    private InputManager inputManager;
 
     [Header("Tunable Params")]
     [SerializeField] private float walkSpeed = 10f;
@@ -45,6 +46,27 @@ public class PlayerMovement : MonoBehaviour
         gravityScaleAtStart = rb.gravityScale;
         isAlive = true;
        
+    }
+
+    private void Start()
+    {
+        inputManager = InputManager.GetInstance();
+        inputManager.OnJoin += OnJoinPerformed;
+        inputManager.OnJump += OnJumpPerformed;
+    }
+
+    private void OnJumpPerformed(object sender, EventArgs e)
+    {
+        if (!isAlive) return;
+        if (footCol.IsTouchingLayers(groundLayerMask))
+        {
+            rb.velocity += new Vector2(0f, jumpSpeed);
+        }
+    }
+
+    private void OnJoinPerformed(object sender, EventArgs e)
+    {
+        GameManager.GetInstance().PlayerCount++;
     }
 
     // Update is called once per frame
@@ -72,6 +94,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /*
     private void OnMove(InputValue inputValue)
     {
         moveInput = inputValue.Get<Vector2>();
@@ -90,11 +113,13 @@ public class PlayerMovement : MonoBehaviour
     {
         GameManager.GetInstance().PlayerCount++;
     }
+    */
 
 
     private void Walk()
     {
-        Vector2 playerVelocity = new Vector2(moveInput.x * walkSpeed, rb.velocity.y);
+        Vector2 movementVector = inputManager.GetMovementVector(); 
+        Vector2 playerVelocity = new Vector2(movementVector.x * walkSpeed, rb.velocity.y);
         rb.velocity = playerVelocity;
 
         if (HasHorizantalSpeed())
@@ -115,8 +140,8 @@ public class PlayerMovement : MonoBehaviour
             rb.gravityScale = gravityScaleAtStart;
             return;
         }
-        
-        Vector2 climbVelocity = new Vector2(rb.velocity.x, moveInput.y * climbSpeed);
+        Vector2 movementVector = inputManager.GetMovementVector();
+        Vector2 climbVelocity = new Vector2(rb.velocity.x, movementVector.y * climbSpeed);
         rb.velocity = climbVelocity;
         rb.gravityScale = 0f;
 
