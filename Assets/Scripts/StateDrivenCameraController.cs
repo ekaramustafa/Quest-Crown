@@ -11,7 +11,7 @@ public class StateDrivenCameraController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform player;
     [Header("Tunable parameters")]
-    [SerializeField] private float offsetSpeed = 1f;
+    [SerializeField] private float offsetSpeed = 2f;
     [SerializeField] private Vector2 maxLookUpAhead = new Vector2(5f, 5f);
     [SerializeField] private float lerpSpeed = 5f; 
 
