@@ -201,6 +201,9 @@ MonoBehaviour:
   - {fileID: 315987816196227187}
   playerCamera: {fileID: 315987816486818020}
   player: {fileID: 2602554894225356819}
+  offsetSpeed: 3
+  maxLookUpAhead: {x: 5, y: 5}
+  lerpSpeed: 5
 --- !u!1 &315987816196227186
 GameObject:
   m_ObjectHideFlags: 0
@@ -351,7 +354,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 4
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -764,7 +767,7 @@ MonoBehaviour:
   m_Follow: {fileID: 2602554894225356819}
   m_Lens:
     FieldOfView: 60
-    OrthographicSize: 4
+    OrthographicSize: 5
     NearClipPlane: 0.3
     FarClipPlane: 1000
     Dutch: 0
@@ -804,12 +807,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 315987817444813276}
     m_Modifications:
+    - target: {fileID: 780574586581744258, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: m_Size.x
+      value: 0.47926092
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744258, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.031720877
+      objectReference: {fileID: 0}
     - target: {fileID: 780574586581744260, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 315987816486818020}
     - target: {fileID: 780574586581744260, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744260, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: m_DefaultActionMap
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744260, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: m_NotificationBehavior
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+      propertyPath: deathKick.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
@@ -834,15 +857,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

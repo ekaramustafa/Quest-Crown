@@ -51,8 +51,8 @@ public class InputManager : MonoBehaviour
     private void JoinPerformed(InputAction.CallbackContext obj)
     {
         OnJoin?.Invoke(this, EventArgs.Empty);
-        Transform newPlayer = PlayerInput.Instantiate(playerPrefab);
-        newPlayer.gameObject.SetActive(true);
+        //Transform newPlayer = PlayerInput.Instantiate(playerPrefab);
+        //newPlayer.gameObject.SetActive(true);
     }
 
     private void JumpPerformed(InputAction.CallbackContext obj)
