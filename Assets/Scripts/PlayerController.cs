@@ -77,7 +77,8 @@ public class PlayerController : MonoBehaviour
     {
         if (bodyCol.IsTouchingLayers(enemiesLayerMask) || 
             bodyCol.IsTouchingLayers(hazardLayerMask) ||
-            footCol.IsTouchingLayers(hazardLayerMask))
+            footCol.IsTouchingLayers(hazardLayerMask) ||
+            footCol.IsTouchingLayers(enemiesLayerMask))
         {
             isAlive = false;
             animator.SetTrigger(DYING);

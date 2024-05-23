@@ -17,15 +17,8 @@ public class StateDrivenCameraController : MonoBehaviour
     [SerializeField] private float lerpSpeed = 10f;
 
 
-    private bool firstUpload;
-
     private InputManager inputManager;
 
-
-    private void Awake()
-    {
-        firstUpload = true;
-    }
     private void Start()
     {
         inputManager = InputManager.GetInstance();
@@ -41,16 +34,21 @@ public class StateDrivenCameraController : MonoBehaviour
 
     private void Update()
     {
-        if (firstUpload)
-        {
-            firstUpload = false;
-            return;
-        }
         ApplyOffset();
     }
 
     private void ApplyOffset()
     {
+        if(GameManager.GetInstance().GetGameState() == GameManager.GameState.GAMEOVER)
+        {
+            foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
+            {
+                CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
+                transposer.m_TrackedObjectOffset = Vector3.Lerp(transposer.m_TrackedObjectOffset, Vector3.zero, lerpSpeed * Time.deltaTime);
+            }
+                return;
+        }
+       
         foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
         {
             Vector2 mouseDelta = inputManager.GetMouseDelta();
