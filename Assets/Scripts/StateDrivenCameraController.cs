@@ -13,10 +13,19 @@ public class StateDrivenCameraController : MonoBehaviour
     [Header("Tunable parameters")]
     [SerializeField] private float offsetSpeed = 2f;
     [SerializeField] private Vector2 maxLookUpAhead = new Vector2(5f, 5f);
-    [SerializeField] private float lerpSpeed = 5f; 
+    [SerializeField] private bool applyLerpSmoothing = false;
+    [SerializeField] private float lerpSpeed = 10f;
+
+
+    private bool firstUpload;
 
     private InputManager inputManager;
 
+
+    private void Awake()
+    {
+        firstUpload = true;
+    }
     private void Start()
     {
         inputManager = InputManager.GetInstance();
@@ -32,21 +41,33 @@ public class StateDrivenCameraController : MonoBehaviour
 
     private void Update()
     {
+        if (firstUpload)
+        {
+            firstUpload = false;
+            return;
+        }
         ApplyOffset();
     }
 
     private void ApplyOffset()
     {
-        Vector2 mouseDelta = inputManager.GetMouseDelta();
         foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
         {
+            Vector2 mouseDelta = inputManager.GetMouseDelta();
             CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
             Vector3 currentOffset = transposer.m_TrackedObjectOffset;
             Vector3 targetOffset = currentOffset + new Vector3(mouseDelta.x * offsetSpeed * Time.deltaTime, mouseDelta.y * offsetSpeed * Time.deltaTime, 0f);
 
             targetOffset = new Vector3(Mathf.Clamp(targetOffset.x, -maxLookUpAhead.x, maxLookUpAhead.x), 0f, 0f);
-
-            transposer.m_TrackedObjectOffset = Vector3.Lerp(currentOffset, targetOffset, lerpSpeed * Time.deltaTime);
+            if (applyLerpSmoothing)
+            {
+                transposer.m_TrackedObjectOffset = Vector3.Lerp(currentOffset, targetOffset, lerpSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transposer.m_TrackedObjectOffset = targetOffset;
+            }
+            
         }
     }
 }
