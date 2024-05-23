@@ -808,29 +808,9 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 315987816486818020}
-    - target: {fileID: 780574586581744262, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+    - target: {fileID: 780574586581744260, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 315987817444813276}
-    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: groundLayerMask.m_Bits
-      value: 192
-      objectReference: {fileID: 0}
-    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: hazardLayerMask.m_Bits
-      value: 8192
-      objectReference: {fileID: 0}
-    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: enemiesLayerMask.m_Bits
-      value: 4096
-      objectReference: {fileID: 0}
-    - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: climbingLayerMask.m_Bits
-      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_RootOrder
@@ -880,44 +860,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 780574586581744262, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
---- !u!1 &315987816973370205 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-  m_PrefabInstance: {fileID: 3371799261223535258}
-  m_PrefabAsset: {fileID: 0}
---- !u!61 &1192505042659374966
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 315987816973370205}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 6200000, guid: 1fc21441cab27da4482f1874791d3f4d, type: 2}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0048851967, y: -0.44404143}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.29725552, y: 0.11191714}
-  m_EdgeRadius: 0
 --- !u!4 &2602554894225356819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
