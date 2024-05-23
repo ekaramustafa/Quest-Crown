@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,17 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PolygonCollider2D confinerCollider;
     public int PlayerCount { get; set; }
 
+
+    public event EventHandler OnPlayerDied;
+
+
+    public enum GameState
+    {
+        PLAYING,
+        GAMEOVER
+    }
+
+    public GameState gamestate;
 
     public static GameManager GetInstance()
     {
@@ -24,12 +36,29 @@ public class GameManager : MonoBehaviour
             Destroy(this.gameObject);
         }
         instance = this;
+        gamestate = GameState.PLAYING;
     }
 
     public PolygonCollider2D GetConfinerCollider()
     {
         return confinerCollider;
     }
+
+
+    public GameState GetGameState()
+    {
+        return gamestate;
+    }
+
+    public void ChangeStateTo(GameState state)
+    {
+        gamestate = state;
+        if(state == GameState.GAMEOVER)
+        {
+            OnPlayerDied?.Invoke(this, EventArgs.Empty);
+        }
+    }
+
 
 
 

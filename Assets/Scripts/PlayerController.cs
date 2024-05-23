@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     private BoxCollider2D footCol;
 
     private InputManager inputManager;
+    private GameManager gameManager;
 
     [Header("Tunable Params")]
     [SerializeField] private float walkSpeed = 10f;
@@ -48,7 +49,9 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         inputManager = InputManager.GetInstance();
+        gameManager = GameManager.GetInstance();
         inputManager.OnJump += OnJumpPerformed;
+
     }
 
     private void OnJumpPerformed(object sender, EventArgs e)
@@ -74,13 +77,15 @@ public class PlayerController : MonoBehaviour
     {
         if (bodyCol.IsTouchingLayers(enemiesLayerMask) || 
             bodyCol.IsTouchingLayers(hazardLayerMask) ||
-            footCol.IsTouchingLayers(hazardLayerMask))
+            footCol.IsTouchingLayers(hazardLayerMask) ||
+            footCol.IsTouchingLayers(enemiesLayerMask))
         {
             isAlive = false;
             animator.SetTrigger(DYING);
             rb.velocity = deathKick;
             bodyCol.enabled = false;
             footCol.enabled = false;
+            gameManager.ChangeStateTo(GameManager.GameState.GAMEOVER);
         }
     }
 
