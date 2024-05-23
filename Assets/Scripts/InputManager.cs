@@ -16,6 +16,9 @@ public class InputManager : MonoBehaviour
     public event EventHandler OnJump;
     public event EventHandler OnJoin;
 
+
+    [SerializeField] private Transform playerPrefab;
+
     public static InputManager GetInstance()
     {
         return instance;
@@ -48,6 +51,8 @@ public class InputManager : MonoBehaviour
     private void JoinPerformed(InputAction.CallbackContext obj)
     {
         OnJoin?.Invoke(this, EventArgs.Empty);
+        Transform newPlayer = PlayerInput.Instantiate(playerPrefab);
+        newPlayer.gameObject.SetActive(true);
     }
 
     private void JumpPerformed(InputAction.CallbackContext obj)
