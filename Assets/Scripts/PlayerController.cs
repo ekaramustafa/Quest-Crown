@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private const string IS_WALKING = "IsWalking";
     private const string IS_CLIMBING = "IsClimbing";
     private const string DYING = "Dying";
+    private const string SHOOTING = "Shooting";
 
     private float gravityScaleAtStart;
     private bool isAlive;
@@ -51,7 +52,13 @@ public class PlayerController : MonoBehaviour
         inputManager = InputManager.GetInstance();
         gameManager = GameManager.GetInstance();
         inputManager.OnJump += OnJumpPerformed;
+        inputManager.OnShootPerformed += OnShootPerformed;
 
+    }
+
+    private void OnShootPerformed(object sender, EventArgs e)
+    {
+        animator.SetTrigger(SHOOTING);
     }
 
     private void OnJumpPerformed(object sender, EventArgs e)
@@ -129,6 +136,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    //For animation reference
+    private void OnShoot()
+    {
+        Debug.Log("Bro shooted");
+    }
+
     private void FlipSprite()
     {
         if (!HasHorizantalSpeed()) return;
@@ -140,7 +153,7 @@ public class PlayerController : MonoBehaviour
         bool playerHasVerticalSpeed = Math.Abs(rb.velocity.y) > Mathf.Epsilon;
         return playerHasVerticalSpeed;
     }
-    private bool HasHorizantalSpeed()
+    public bool HasHorizantalSpeed()
     {
         bool playerHasHorizantalSpeed = Math.Abs(rb.velocity.x) > Mathf.Epsilon;
         return playerHasHorizantalSpeed;

@@ -15,6 +15,7 @@ public class InputManager : MonoBehaviour
 
     public event EventHandler OnJump;
     public event EventHandler OnJoin;
+    public event EventHandler OnShootPerformed;
 
 
     [SerializeField] private Transform playerPrefab;
@@ -38,13 +39,18 @@ public class InputManager : MonoBehaviour
         inputActions.Player.Enable();
         inputActions.Player.Jump.performed += JumpPerformed;
         inputActions.Player.Join.performed += JoinPerformed;
+        inputActions.Player.Fire.performed += FirePerformed;
+    }
+
+    private void FirePerformed(InputAction.CallbackContext obj)
+    {
+        OnShootPerformed?.Invoke(this,EventArgs.Empty);
     }
 
     private void OnDestroy()
     {
         inputActions.Player.Jump.performed -= JumpPerformed;
         inputActions.Player.Join.performed -= JoinPerformed;
-
         inputActions.Dispose();
     }
 
@@ -71,6 +77,12 @@ public class InputManager : MonoBehaviour
     {
         Vector2 mouseVector = inputActions.Player.Look.ReadValue<Vector2>();
         return mouseVector;
+    }
+
+    public Vector2 GetMousePosition()
+    {
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        return mousePosition;
     }
 
 

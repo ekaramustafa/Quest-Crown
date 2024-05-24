@@ -3,7 +3,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
+using CodeMonkey.Utils;
+using UnityEngine.Diagnostics;
 
 public class StateDrivenCameraController : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class StateDrivenCameraController : MonoBehaviour
             foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
             {
                 CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
+               // if (transposer.m_TrackedObjectOffset == Vector3.zero) return;
                 transposer.m_TrackedObjectOffset = Vector3.Lerp(transposer.m_TrackedObjectOffset, Vector3.zero, lerpSpeed * Time.deltaTime);
             }
                 return;
@@ -65,7 +67,19 @@ public class StateDrivenCameraController : MonoBehaviour
             {
                 transposer.m_TrackedObjectOffset = targetOffset;
             }
-            
+            if (!player.GetComponent<PlayerController>().HasHorizantalSpeed())
+            {
+
+                if (transposer.m_TrackedObjectOffset.x < 0)
+                {
+                    player.transform.localScale = new Vector2(-1f, 1f);
+                }
+                else
+                {
+                    player.transform.localScale = new Vector2(1f, 1f);
+                }
+            }
+
         }
     }
 }
