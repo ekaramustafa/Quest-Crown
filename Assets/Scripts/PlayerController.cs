@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     private const string SHOOTING = "Shooting";
 
     private float gravityScaleAtStart;
-    private bool isAlive;
+    private bool canMove;
 
     private Rigidbody2D rb;
     private Animator animator;
@@ -43,7 +43,7 @@ public class PlayerController : MonoBehaviour
         bodyCol = GetComponent<CapsuleCollider2D>();
         footCol = GetComponent<BoxCollider2D>();
         gravityScaleAtStart = rb.gravityScale;
-        isAlive = true;
+        canMove = true;
        
     }
 
@@ -58,12 +58,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnShootPerformed(object sender, EventArgs e)
     {
+        if (!canMove) return;
         animator.SetTrigger(SHOOTING);
     }
 
     private void OnJumpPerformed(object sender, EventArgs e)
     {
-        if (!isAlive) return;
+        if (!canMove) return;
         if (footCol.IsTouchingLayers(groundLayerMask))
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!isAlive) return;
+        if (!canMove) return;
         Walk();
         FlipSprite();
         Climb();
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour
             footCol.IsTouchingLayers(hazardLayerMask) ||
             footCol.IsTouchingLayers(enemiesLayerMask))
         {
-            isAlive = false;
+            canMove = false;
             animator.SetTrigger(DYING);
             rb.velocity = deathKick;
             bodyCol.enabled = false;
@@ -136,10 +137,25 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //For animation reference
-    private void OnShoot()
+
+    /// <summary>
+    /// These two functions are going to provide the mechanism of freezing the player 
+    /// when it is shooting to avoid any animation glitches (e.g. legs are not moving while shooting and walking)
+    /// </summary>
+    //animation event reference
+
+    private void AtShootingStarted()
     {
-        Debug.Log("Bro shooted");
+        //canMove = false; game design choice
+    }
+    private void AtShootingMoment()
+    {
+        Debug.Log("Shoot");
+    }
+    //animation event reference
+    private void AtShootingFinished()
+    {
+        canMove = true;
     }
 
     private void FlipSprite()

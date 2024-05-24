@@ -78,10 +78,24 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.26666668
-    functionName: OnShoot
+  - time: 0.016666668
+    functionName: AtShootingStarted
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.26666668
+    functionName: AtShootingMoment
+    data: 
+    objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: AtShootingFinished
+    data: 
+    objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
