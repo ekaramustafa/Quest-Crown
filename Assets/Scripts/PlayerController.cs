@@ -28,12 +28,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float climbSpeed = 10f;
     [SerializeField] private Vector2 deathKick = new Vector3(0f,10f);
+    [SerializeField] private Vector2 shootingVelocity = new Vector2(20f, 10f);
 
     [Header("Masks")]
     [SerializeField] private LayerMask groundLayerMask;
     [SerializeField] private LayerMask climbingLayerMask;
     [SerializeField] private LayerMask enemiesLayerMask;
     [SerializeField] private LayerMask hazardLayerMask;
+
+    [Header("Transforms")]
+    [SerializeField] private Transform gunTransform;
 
     private void Awake()
     {
@@ -150,7 +154,9 @@ public class PlayerController : MonoBehaviour
     }
     private void AtShootingMoment()
     {
-        Debug.Log("Shoot");
+        Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(),gunTransform.position,Quaternion.identity);
+        arrow.gameObject.SetActive(true);
+        arrow.GetComponent<Arrow>().SetVelocity(new Vector2((Mathf.Sign(transform.localScale.x) * shootingVelocity.x), shootingVelocity.y));
     }
     //animation event reference
     private void AtShootingFinished()
