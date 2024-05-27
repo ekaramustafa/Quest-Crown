@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: PlayerShootingReleasing
+  m_Name: PlayerReleasingShooting
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -73,14 +73,14 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.016666668
-    functionName: AtShootingMoment
+    functionName: AtReleasingShootingMoment
     data: 
     objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.2
-    functionName: AtShootingFinished
+    functionName: AtReleasingShootingFinished
     data: 
     objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
     floatParameter: 0

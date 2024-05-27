@@ -152,31 +152,31 @@ public class PlayerController : MonoBehaviour
     }
 
     //animation event reference
-    private void AtShootingStarted()
+    private void AtAttemptShootingStarted()
     {
-        rb.velocity = Vector2.zero;
+        rb.velocity = new Vector2(0f,rb.velocity.y);
         canMove = false;
     }
 
     //animation event reference
-    private void AtShootingAttemptingFinished()
+    private void AtAttemptShootingFinished()
     {
-        rb.velocity = Vector2.zero;
+        rb.velocity = new Vector2(0f, rb.velocity.y);
         animator.SetBool(SHOOTING_WAITING,true);
     }
 
 
     //animation event reference
-    private void AtShootingMoment()
+    private void AtReleasingShootingMoment()
     {
         Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(),gunTransform.position,Quaternion.identity);
         arrow.gameObject.SetActive(true);
         float direction = Mathf.Sign(transform.localScale.x);
         arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
         //Add knocback
-        rb.velocity = Vector2.zero;
+        rb.velocity = new Vector2(0f, rb.velocity.y);
         canMove = false;
-        rb.velocity = new Vector2(-direction * knockBackSpeed, 0f);    
+        rb.velocity = new Vector2(-direction * knockBackSpeed, rb.velocity.y);    
     }
     private void OnShootCanceled(object sender, EventArgs e)
     {
@@ -186,9 +186,9 @@ public class PlayerController : MonoBehaviour
     }
 
     //animation event reference
-    private void AtShootingFinished()
+    private void AtReleasingShootingFinished()
     {
-        rb.velocity = Vector2.zero;
+        rb.velocity = new Vector2(0f, rb.velocity.y);
         canMove = true;
         animator.SetBool(SHOOTING_RELEASING, false);
     }
