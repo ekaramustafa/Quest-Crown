@@ -33,6 +33,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 deathKick = new Vector3(0f,10f);
     //TO-DO Add maximum shooting velocity and change the velocity depending on holding time
     //TO-DO Shaking animation, animator overrides rigidbody wtf
+    /*
+     * Potential solutions
+     * https://forum.unity.com/threads/animation-stops-object-movement.184084/ 
+     */
     [SerializeField] private Vector2 shootingVelocity = new Vector2(20f, 10f);
 
     [Header("Masks")]
@@ -205,9 +209,10 @@ public class PlayerController : MonoBehaviour
     //animation event reference
     private void AtReleasingShootingFinished()
     {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
         canMove = true;
         animator.SetBool(SHOOTING_RELEASING, false);
+        animator.SetBool(SHOOTING_ATTEMPT, false);
+        animator.SetBool(SHOOTING_WAITING, false);
     }
 
 
