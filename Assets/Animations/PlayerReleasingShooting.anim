@@ -75,14 +75,14 @@ AnimationClip:
   - time: 0.016666668
     functionName: AtReleasingShootingMoment
     data: 
-    objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 0.05
     functionName: AtReleasingShootingFinished
     data: 
-    objectReferenceParameter: {fileID: 3074151698171412935, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+    objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
