@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] private float jumpSpeed = 10f;
     [SerializeField] private float climbSpeed = 10f;
+    [SerializeField] private float knockBackSpeed = 5f;
     [SerializeField] private Vector2 deathKick = new Vector3(0f,10f);
     [SerializeField] private Vector2 shootingVelocity = new Vector2(20f, 10f);
 
@@ -156,7 +157,11 @@ public class PlayerController : MonoBehaviour
     {
         Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(),gunTransform.position,Quaternion.identity);
         arrow.gameObject.SetActive(true);
-        arrow.GetComponent<Arrow>().SetVelocity(new Vector2((Mathf.Sign(transform.localScale.x) * shootingVelocity.x), shootingVelocity.y));
+        float direction = Mathf.Sign(transform.localScale.x);
+        arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
+        //Add knocback
+        canMove = false;
+        rb.velocity = new Vector2(-direction * knockBackSpeed, 0f);    
     }
     //animation event reference
     private void AtShootingFinished()
