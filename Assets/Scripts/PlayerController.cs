@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float climbSpeed = 10f;
     [SerializeField] private float knockBackSpeed = 5f;
     [SerializeField] private Vector2 deathKick = new Vector3(0f,10f);
+    //TO-DO Add maximum shooting velocity and change the velocity depending on holding time
+    //TO-DO Shaking animation, animator overrides rigidbody wtf
     [SerializeField] private Vector2 shootingVelocity = new Vector2(20f, 10f);
 
     [Header("Masks")]
@@ -139,60 +141,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    /// <summary>
-    /// These two functions are going to provide the mechanism of freezing the player 
-    /// when it is shooting to avoid any animation glitches (e.g. legs are not moving while shooting and walking)
-    /// </summary>
-
-    private void OnShootPerformed(object sender, EventArgs e)
-    {
-        if (!canMove) return;
-        animator.SetBool(SHOOTING_ATTEMPT, true);
-    }
-
-    //animation event reference
-    private void AtAttemptShootingStarted()
-    {
-        rb.velocity = new Vector2(0f,rb.velocity.y);
-        canMove = false;
-    }
-
-    //animation event reference
-    private void AtAttemptShootingFinished()
-    {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
-        animator.SetBool(SHOOTING_WAITING,true);
-    }
-
-
-    //animation event reference
-    private void AtReleasingShootingMoment()
-    {
-        Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(),gunTransform.position,Quaternion.identity);
-        arrow.gameObject.SetActive(true);
-        float direction = Mathf.Sign(transform.localScale.x);
-        arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
-        //Add knocback
-        rb.velocity = new Vector2(0f, rb.velocity.y);
-        canMove = false;
-        rb.velocity = new Vector2(-direction * knockBackSpeed, rb.velocity.y);    
-    }
-    private void OnShootCanceled(object sender, EventArgs e)
-    {
-        animator.SetBool(SHOOTING_RELEASING, true);
-        animator.SetBool(SHOOTING_ATTEMPT, false);
-        animator.SetBool(SHOOTING_WAITING, false);
-    }
-
-    //animation event reference
-    private void AtReleasingShootingFinished()
-    {
-        rb.velocity = new Vector2(0f, rb.velocity.y);
-        canMove = true;
-        animator.SetBool(SHOOTING_RELEASING, false);
-    }
-
     private void FlipSprite()
     {
         if (!HasHorizantalSpeed()) return;
@@ -210,7 +158,59 @@ public class PlayerController : MonoBehaviour
         return playerHasHorizantalSpeed;
     }
 
-  
+    /// <summary>
+    /// These functions are for handling shooting animations.
+    /// </summary>
+
+    private void OnShootPerformed(object sender, EventArgs e)
+    {
+        if (!canMove) return;
+        animator.SetBool(SHOOTING_ATTEMPT, true);
+    }
+
+    //animation event reference
+    private void AtAttemptShootingStarted()
+    {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        canMove = false;
+    }
+
+    //animation event reference
+    private void AtAttemptShootingFinished()
+    {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        animator.SetBool(SHOOTING_WAITING, true);
+    }
+
+
+    //animation event reference
+    private void AtReleasingShootingMoment()
+    {
+        Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(), gunTransform.position, Quaternion.identity);
+        arrow.gameObject.SetActive(true);
+        float direction = Mathf.Sign(transform.localScale.x);
+        arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
+        //Add knocback
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        canMove = false;
+        rb.velocity = new Vector2(-direction * knockBackSpeed, rb.velocity.y);
+    }
+    private void OnShootCanceled(object sender, EventArgs e)
+    {
+        animator.SetBool(SHOOTING_RELEASING, true);
+        animator.SetBool(SHOOTING_ATTEMPT, false);
+        animator.SetBool(SHOOTING_WAITING, false);
+    }
+
+    //animation event reference
+    private void AtReleasingShootingFinished()
+    {
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+        canMove = true;
+        animator.SetBool(SHOOTING_RELEASING, false);
+    }
+
+
 
 
 }
