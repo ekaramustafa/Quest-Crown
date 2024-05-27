@@ -10,7 +10,9 @@ public class PlayerController : MonoBehaviour
     private const string IS_WALKING = "IsWalking";
     private const string IS_CLIMBING = "IsClimbing";
     private const string DYING = "Dying";
-    private const string SHOOTING = "Shooting";
+    private const string SHOOTING_ATTEMPT = "ShootingAttempt";
+    private const string SHOOTING_WAITING = "ShootingWaiting";
+    private const string SHOOTING_RELEASING = "ShootingReleasing";
 
     private float gravityScaleAtStart;
     private bool canMove;
@@ -60,17 +62,6 @@ public class PlayerController : MonoBehaviour
         inputManager.OnShootPerformed += OnShootPerformed;
         inputManager.OnShootCanceled += OnShootCanceled;
 
-    }
-
-    private void OnShootCanceled(object sender, EventArgs e)
-    {
-        Debug.Log("Shooting stopped");
-    }
-
-    private void OnShootPerformed(object sender, EventArgs e)
-    {
-        if (!canMove) return;
-        animator.SetTrigger(SHOOTING);
     }
 
     private void OnJumpPerformed(object sender, EventArgs e)
@@ -153,12 +144,29 @@ public class PlayerController : MonoBehaviour
     /// These two functions are going to provide the mechanism of freezing the player 
     /// when it is shooting to avoid any animation glitches (e.g. legs are not moving while shooting and walking)
     /// </summary>
-    //animation event reference
 
+    private void OnShootPerformed(object sender, EventArgs e)
+    {
+        if (!canMove) return;
+        animator.SetBool(SHOOTING_ATTEMPT, true);
+    }
+
+    //animation event reference
     private void AtShootingStarted()
     {
-        //canMove = false; game design choice
+        rb.velocity = Vector2.zero;
+        canMove = false;
     }
+
+    //animation event reference
+    private void AtShootingAttemptingFinished()
+    {
+        rb.velocity = Vector2.zero;
+        animator.SetBool(SHOOTING_WAITING,true);
+    }
+
+
+    //animation event reference
     private void AtShootingMoment()
     {
         Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(),gunTransform.position,Quaternion.identity);
@@ -166,13 +174,23 @@ public class PlayerController : MonoBehaviour
         float direction = Mathf.Sign(transform.localScale.x);
         arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
         //Add knocback
+        rb.velocity = Vector2.zero;
         canMove = false;
         rb.velocity = new Vector2(-direction * knockBackSpeed, 0f);    
     }
+    private void OnShootCanceled(object sender, EventArgs e)
+    {
+        animator.SetBool(SHOOTING_RELEASING, true);
+        animator.SetBool(SHOOTING_ATTEMPT, false);
+        animator.SetBool(SHOOTING_WAITING, false);
+    }
+
     //animation event reference
     private void AtShootingFinished()
     {
+        rb.velocity = Vector2.zero;
         canMove = true;
+        animator.SetBool(SHOOTING_RELEASING, false);
     }
 
     private void FlipSprite()

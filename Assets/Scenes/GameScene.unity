@@ -28544,6 +28544,10 @@ PrefabInstance:
       propertyPath: m_ChildCameras.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 315987816196227196, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.49
+      objectReference: {fileID: 0}
     - target: {fileID: 315987816196227197, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
@@ -28551,6 +28555,14 @@ PrefabInstance:
     - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: orthographic size
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816486818021, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987817269177724, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.49
       objectReference: {fileID: 0}
     - target: {fileID: 315987817269177725, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
@@ -28604,6 +28616,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 315987817696479077, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6.49
+      objectReference: {fileID: 0}
     - target: {fileID: 315987817696479078, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
@@ -28611,6 +28627,10 @@ PrefabInstance:
     - target: {fileID: 2602554894225356829, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: knockBackSpeed
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602554894225357036, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3371799261571975593, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_SortingLayer
