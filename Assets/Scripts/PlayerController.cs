@@ -58,7 +58,13 @@ public class PlayerController : MonoBehaviour
         gameManager = GameManager.GetInstance();
         inputManager.OnJump += OnJumpPerformed;
         inputManager.OnShootPerformed += OnShootPerformed;
+        inputManager.OnShootCanceled += OnShootCanceled;
 
+    }
+
+    private void OnShootCanceled(object sender, EventArgs e)
+    {
+        Debug.Log("Shooting stopped");
     }
 
     private void OnShootPerformed(object sender, EventArgs e)

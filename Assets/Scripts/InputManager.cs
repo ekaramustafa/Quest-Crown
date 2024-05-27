@@ -16,6 +16,7 @@ public class InputManager : MonoBehaviour
     public event EventHandler OnJump;
     public event EventHandler OnJoin;
     public event EventHandler OnShootPerformed;
+    public event EventHandler OnShootCanceled;
 
 
     [SerializeField] private Transform playerPrefab;
@@ -40,11 +41,20 @@ public class InputManager : MonoBehaviour
         inputActions.Player.Jump.performed += JumpPerformed;
         inputActions.Player.Join.performed += JoinPerformed;
         inputActions.Player.Fire.performed += FirePerformed;
+        inputActions.Player.Fire.canceled += FireCanceled;
+
+
+    }
+
+    private void FireCanceled(InputAction.CallbackContext obj)
+    {
+        OnShootCanceled?.Invoke(this, EventArgs.Empty);
     }
 
     private void FirePerformed(InputAction.CallbackContext obj)
     {
         OnShootPerformed?.Invoke(this,EventArgs.Empty);
+        
     }
 
     private void OnDestroy()
