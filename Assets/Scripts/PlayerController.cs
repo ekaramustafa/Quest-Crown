@@ -194,7 +194,6 @@ public class PlayerController : MonoBehaviour
         Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(), gunTransform.position, Quaternion.identity);
         arrow.gameObject.SetActive(true);
         float direction = Mathf.Sign(transform.localScale.x);
-        Debug.Log(shootingVelocity);
         arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
         //Add knocback
         rb.velocity = new Vector2(-direction * knockBackSpeed, rb.velocity.y);
