@@ -67,14 +67,16 @@ public class StateDrivenCameraController : MonoBehaviour
             {
                 transposer.m_TrackedObjectOffset = targetOffset;
             }
+
+            //To split the sprite when the player is in idle and look opposite directions
             if (!player.GetComponent<PlayerController>().HasHorizantalSpeed())
             {
 
-                if (transposer.m_TrackedObjectOffset.x < 0)
+                if (transposer.m_TrackedObjectOffset.x < -1f)
                 {
                     player.transform.localScale = new Vector2(-1f, 1f);
                 }
-                else
+                else if (transposer.m_TrackedObjectOffset.x > 1f)
                 {
                     player.transform.localScale = new Vector2(1f, 1f);
                 }
