@@ -39,6 +39,7 @@ public class Arrow : MonoBehaviour
         transform.position += amountToMove;
 
         float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        if (velocity.x < 0) angle += 180;
         transform.rotation = Quaternion.Euler(0, 0, angle);
 
     }
@@ -48,7 +49,8 @@ public class Arrow : MonoBehaviour
     {
         if ((hitLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
-            Debug.Log("HIT");
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
         }
 
         if ((destroyLayer.value & (1 << collision.gameObject.layer)) != 0)

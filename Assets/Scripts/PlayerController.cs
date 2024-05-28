@@ -183,7 +183,14 @@ public class PlayerController : MonoBehaviour
     {
         if (!canMove) return;
         canMove = false;
-        rb.velocity = new Vector2(0, rb.velocity.y);
+        if (!isClimbing)
+        {
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
         isWalking = false;
         isClimbing = false;
         isPullingBow = true;
