@@ -8,9 +8,13 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour
 { 
     public event EventHandler OnDied;
+    public event EventHandler OnMaximumBowTensionReached;
 
     private bool isWalking;
     private bool isClimbing;
+
+    private Vector2 shootingVelocity;
+    private bool isPullingBow;
 
     private float gravityScaleAtStart;
     private bool canMove;
@@ -29,7 +33,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float knockBackSpeed = 10f;
     [SerializeField] private Vector2 deathKick = new Vector3(0f,10f);
     //TO-DO Add maximum shooting velocity and change the velocity depending on holding time
-    [SerializeField] private Vector2 shootingVelocity = new Vector2(20f, 10f);
+    [SerializeField] private Vector2 maxShootingVelocity = new Vector2(25f, 12f);
+    [SerializeField] private Vector2 minShootingVelocity = new Vector2(10f, 5f);
+    [SerializeField] private Vector2 tensionIncreaseRate = new Vector2(3f,3f);
 
     [Header("Masks")]
     [SerializeField] private LayerMask groundLayerMask;
@@ -51,6 +57,10 @@ public class PlayerController : MonoBehaviour
 
         isWalking = false;
         isClimbing = false;
+
+        //Shooting
+        shootingVelocity = Vector2.zero;
+        isPullingBow = false;
     }
 
     private void Start()
@@ -59,6 +69,7 @@ public class PlayerController : MonoBehaviour
         gameManager = GameManager.GetInstance();
         inputManager.OnJump += OnJumpPerformed;
         inputManager.OnShootPerformed += OnShootPerformed;
+        inputManager.OnShootCanceled += OnShootCanceled; 
 
     }
 
@@ -74,6 +85,7 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleBowTension();
         if (!canMove) return;
         Walk();
         FlipSprite();
@@ -138,6 +150,34 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void HandleBowTension()
+    {
+        if (!isPullingBow)
+        {
+            shootingVelocity = minShootingVelocity;
+            return;
+        }
+
+        shootingVelocity.x += tensionIncreaseRate.x * Time.deltaTime;
+        shootingVelocity.y += tensionIncreaseRate.y * Time.deltaTime;
+
+        shootingVelocity.x = Mathf.Clamp(shootingVelocity.x, minShootingVelocity.x, maxShootingVelocity.x);
+        shootingVelocity.y = Mathf.Clamp(shootingVelocity.y, minShootingVelocity.y, maxShootingVelocity.y);
+
+
+        if (shootingVelocity.x >= maxShootingVelocity.x && shootingVelocity.y >= maxShootingVelocity.y)
+        {
+            OnMaximumBowTensionReached?.Invoke(this, EventArgs.Empty);
+            isPullingBow = false;
+            shootingVelocity = minShootingVelocity;
+        }
+    }
+
+
+    private void OnShootCanceled(object sender, EventArgs e)
+    {
+        isPullingBow = false;
+    }
 
     private void OnShootPerformed(object sender, EventArgs e)
     {
@@ -146,6 +186,7 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(0, rb.velocity.y);
         isWalking = false;
         isClimbing = false;
+        isPullingBow = true;
     }
 
     public void ShootArrow()
@@ -153,6 +194,7 @@ public class PlayerController : MonoBehaviour
         Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(), gunTransform.position, Quaternion.identity);
         arrow.gameObject.SetActive(true);
         float direction = Mathf.Sign(transform.localScale.x);
+        Debug.Log(shootingVelocity);
         arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
         //Add knocback
         rb.velocity = new Vector2(-direction * knockBackSpeed, rb.velocity.y);

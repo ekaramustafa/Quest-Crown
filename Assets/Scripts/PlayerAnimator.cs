@@ -23,17 +23,38 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private InputManager inputManager;
 
+
+    private bool isBowTensionReachedMax;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        
+        isBowTensionReachedMax = false;
+
+
     }
     private void Start()
     {
         inputManager = InputManager.GetInstance();
         inputManager.OnShootPerformed += OnShootPerformed;
         inputManager.OnShootCanceled += OnShootCanceled;
+        player.OnDied += PlayerOnDied;
+        player.OnMaximumBowTensionReached += OnMaximumBowTensionReached;
         
+    }
+
+    private void OnMaximumBowTensionReached(object sender, EventArgs e)
+    {
+        isBowTensionReachedMax = true;
+        player.ShootArrow();
+        animator.SetBool(SHOOTING_RELEASING, true);
+        animator.SetBool(SHOOTING_ATTEMPT, false);
+        animator.SetBool(SHOOTING_WAITING, false);
+    }
+
+    private void PlayerOnDied(object sender, EventArgs e)
+    {
+        animator.SetTrigger(DYING);
     }
 
     // Update is called once per frame
@@ -64,8 +85,14 @@ public class PlayerAnimator : MonoBehaviour
     //animation event reference
     private void AtReleasingShootingMoment()
     {
+        if (isBowTensionReachedMax)
+        {
+            isBowTensionReachedMax = false;
+            return;
+        }
         player.ShootArrow();
     }
+
     private void OnShootCanceled(object sender, EventArgs e)
     {
         animator.SetBool(SHOOTING_RELEASING, true);

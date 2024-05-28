@@ -28541,10 +28541,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_AnimatedTarget
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_ChildCameras.Array.size
       value: 0
       objectReference: {fileID: 0}

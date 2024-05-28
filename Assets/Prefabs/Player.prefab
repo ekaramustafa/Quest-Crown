@@ -272,7 +272,9 @@ MonoBehaviour:
   climbSpeed: 6
   knockBackSpeed: 20
   deathKick: {x: 0, y: 10}
-  shootingVelocity: {x: 20, y: 10}
+  maxShootingVelocity: {x: 20, y: 10}
+  minShootingVelocity: {x: 10, y: 4}
+  tensionIncreaseRate: {x: 3, y: 3}
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 192
