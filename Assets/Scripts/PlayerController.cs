@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
 
     private float gravityScaleAtStart;
     private bool canMove;
+    private bool isAlive;
 
     private Rigidbody2D rb;
     private CapsuleCollider2D bodyCol;
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour
         footCol = GetComponent<BoxCollider2D>();
         gravityScaleAtStart = rb.gravityScale;
         canMove = true;
+        isAlive = true;
 
         isWalking = false;
         isClimbing = false;
@@ -72,26 +74,28 @@ public class PlayerController : MonoBehaviour
         inputManager.OnShootCanceled += OnShootCanceled; 
 
     }
+    // Update is called once per frame
+    void Update()
+    {
+        if (!isAlive) return;
+        HandleBowTension();
+        Die();
+        if (!canMove) return;
+        Walk();
+        Climb();
+        FlipSprite();
+    }
+
 
     private void OnJumpPerformed(object sender, EventArgs e)
     {
-        if (!canMove) return;
+        if (!canMove || !isAlive) return;
         if (footCol.IsTouchingLayers(groundLayerMask))
         {
             rb.velocity += new Vector2(0f, jumpSpeed);
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        HandleBowTension();
-        if (!canMove) return;
-        Walk();
-        FlipSprite();
-        Climb();
-        Die();
-    }
 
     private void Die()
     {
@@ -101,6 +105,7 @@ public class PlayerController : MonoBehaviour
             footCol.IsTouchingLayers(enemiesLayerMask))
         {
             canMove = false;
+            isAlive = false;
             OnDied?.Invoke(this, EventArgs.Empty);
             rb.velocity = deathKick;
             bodyCol.enabled = false;
@@ -181,7 +186,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnShootPerformed(object sender, EventArgs e)
     {
-        if (!canMove) return;
+        if (!canMove || !isAlive) return;
         canMove = false;
         if (!isClimbing)
         {
