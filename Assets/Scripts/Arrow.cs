@@ -35,8 +35,11 @@ public class Arrow : MonoBehaviour
         velocity += gravity * Time.deltaTime;
 
         velocity -= velocity.sqrMagnitude * drag * velocity.normalized * Time.deltaTime;
+        Vector3 amountToMove = new Vector3(velocity.x, velocity.y, 0f) * Time.deltaTime;
+        transform.position += amountToMove;
 
-        transform.position += new Vector3(velocity.x, velocity.y, 0f) * Time.deltaTime;
+        float angle = Mathf.Atan2(velocity.y, velocity.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
 
     }
 
