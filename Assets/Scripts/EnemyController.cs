@@ -30,4 +30,5 @@ public class EnemyController : MonoBehaviour
     {
         transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), 1f);
     }
+
 }
