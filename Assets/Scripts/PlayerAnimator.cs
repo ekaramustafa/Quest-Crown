@@ -66,6 +66,8 @@ public class PlayerAnimator : MonoBehaviour
     
     private void OnShootPerformed(object sender, EventArgs e)
     {
+        animator.SetBool(SHOOTING_RELEASING, false);
+        animator.SetBool(SHOOTING_WAITING, false);
         animator.SetBool(SHOOTING_ATTEMPT, true);
     }
 
@@ -95,9 +97,10 @@ public class PlayerAnimator : MonoBehaviour
 
     private void OnShootCanceled(object sender, EventArgs e)
     {
-        animator.SetBool(SHOOTING_RELEASING, true);
-        animator.SetBool(SHOOTING_ATTEMPT, false);
+        animator.SetBool(SHOOTING_ATTEMPT,false);
         animator.SetBool(SHOOTING_WAITING, false);
+        animator.SetBool(SHOOTING_RELEASING, true);
+
     }
 
     //animation event reference
