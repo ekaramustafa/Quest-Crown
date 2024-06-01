@@ -345,7 +345,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -596,6 +596,7 @@ GameObject:
   - component: {fileID: 203863195}
   - component: {fileID: 203863197}
   - component: {fileID: 203863196}
+  - component: {fileID: 203863198}
   m_Layer: 0
   m_Name: UI Camera
   m_TagString: Untagged
@@ -635,8 +636,8 @@ Camera:
   m_GameObject: {fileID: 203863194}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 3
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.6981132, g: 0.6981132, b: 0.6981132, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -669,6 +670,39 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &203863198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203863194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 1
+  m_Cameras: []
+  m_RendererIndex: 0
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &333840843
 GameObject:
   m_ObjectHideFlags: 0
@@ -890,7 +924,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28540,10 +28574,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_AnimatedTarget
+      value: 
+      objectReference: {fileID: 1192682105}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ChildCameras.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.data[4].m_Hash
+      value: 916296144
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.data[5].m_Hash
+      value: -2026628701
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.data[6].m_Hash
+      value: 1153580118
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.data[4].m_ParentHash
+      value: 756556552
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.data[5].m_ParentHash
+      value: 756556552
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_ParentHash.Array.data[6].m_ParentHash
+      value: 756556552
+      objectReference: {fileID: 0}
     - target: {fileID: 315987816196227197, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 600166866}
+    - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: orthographic size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_OcclusionCulling
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 315987817269177725, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
       value: 
@@ -28600,8 +28678,25 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 600166866}
+    - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_CameraType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_RenderShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_RendererIndex
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+--- !u!95 &1192682105 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3371799261262927014, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+  m_PrefabInstance: {fileID: 1192682104}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1268033779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
@@ -28694,7 +28789,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29393,7 +29488,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -29870,7 +29965,7 @@ TilemapRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
