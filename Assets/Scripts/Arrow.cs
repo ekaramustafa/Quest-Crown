@@ -13,20 +13,24 @@ public class Arrow : MonoBehaviour
     [SerializeField] private LayerMask hitLayer;
 
     [Header("Tunable parameters")]
-    [SerializeField]
-    private float drag = 0.3f;
+    [SerializeField] private float drag = 0.3f;
+    [SerializeField] private float damage = 50f;
+    [SerializeField] private Vector2 knockBack = new Vector2(5f,5f);
 
     private Vector2 velocity = Vector2.zero;
+    private float direction;
     private Rigidbody2D rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        direction = 1f;
     }
 
     public void SetVelocity(Vector2 velocity)
     {
-        transform.localScale = new Vector3(Mathf.Sign(velocity.x),transform.localScale.y,transform.localScale.z);
+        direction = Mathf.Sign(velocity.x);
+        transform.localScale = new Vector3(direction,transform.localScale.y,transform.localScale.z);
         this.velocity = velocity;
     }
 
@@ -49,7 +53,7 @@ public class Arrow : MonoBehaviour
     {
         if ((hitLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<EnemyController>().TakeDamage(damage,new Vector2(knockBack.x * direction, knockBack.y));
             Destroy(gameObject);
         }
 

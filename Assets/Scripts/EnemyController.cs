@@ -1,13 +1,14 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
     [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float knockBackDuration = 0.5f;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
+    private bool isKnockedBack = false;
 
     private void Awake()
     {
@@ -17,7 +18,10 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        rb.velocity = new Vector2(movementSpeed, 0f);
+        if (!isKnockedBack)
+        {
+            rb.velocity = new Vector2(movementSpeed, 0f);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -31,4 +35,24 @@ public class EnemyController : MonoBehaviour
         transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), 1f);
     }
 
+    public void TakeDamage(float damage, Vector2 knockBack)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            StartCoroutine(ApplyKnockBack(knockBack));
+        }
+    }
+
+    private IEnumerator ApplyKnockBack(Vector2 knockBack)
+    {
+        isKnockedBack = true;
+        rb.velocity = knockBack;
+        yield return new WaitForSeconds(knockBackDuration);
+        isKnockedBack = false;
+    }
 }
