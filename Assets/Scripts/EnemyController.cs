@@ -1,20 +1,27 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 1f;
-    [SerializeField] private float health = 100f;
-    [SerializeField] private float knockBackDuration = 0.5f;
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
     private bool isKnockedBack = false;
+    [Header("Tunable Parameters")]
+    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float knockBackDuration = 0.5f;
+
+
+
+    public event EventHandler OnTakenDamage;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
+
 
     private void Update()
     {
@@ -32,11 +39,14 @@ public class EnemyController : MonoBehaviour
 
     private void FlipSprite()
     {
-        transform.localScale = new Vector2(-(Mathf.Sign(rb.velocity.x)), 1f);
+        float sign = -Mathf.Sign(rb.velocity.x);
+        transform.localScale = new Vector2(sign, 1f);
+
     }
 
     public void TakeDamage(float damage, Vector2 knockBack)
     {
+        OnTakenDamage?.Invoke(this, EventArgs.Empty);
         health -= damage;
         if (health <= 0)
         {
@@ -48,6 +58,7 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+
     private IEnumerator ApplyKnockBack(Vector2 knockBack)
     {
         isKnockedBack = true;
@@ -55,4 +66,5 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(knockBackDuration);
         isKnockedBack = false;
     }
+
 }

@@ -97,7 +97,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Die()
+    public void Die()
     {
         if (bodyCol.IsTouchingLayers(enemiesLayerMask) || 
             bodyCol.IsTouchingLayers(hazardLayerMask) ||

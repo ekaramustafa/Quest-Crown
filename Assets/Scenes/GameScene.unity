@@ -138,6 +138,30 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+      propertyPath: tintFadeSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+      propertyPath: materialTintColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+      propertyPath: materialTintColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+      propertyPath: materialTintColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+      propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 652145740}
+    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+      propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8977706257488661628, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -186,7 +210,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
 --- !u!1 &38938620
 GameObject:
@@ -664,7 +689,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
@@ -28414,6 +28439,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 7916256093991758160, guid: dbae82f9e13bdbc45bccfc55af9ba89f, type: 3}
+--- !u!1 &652145740 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8977706257488661628, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+  m_PrefabInstance: {fileID: 24862673}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &716676975
 GameObject:
   m_ObjectHideFlags: 0
@@ -28575,40 +28605,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_AnimatedTarget
-      value: 
-      objectReference: {fileID: 1192682105}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_ChildCameras.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.data[4].m_Hash
-      value: 916296144
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.data[5].m_Hash
-      value: -2026628701
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.data[6].m_Hash
-      value: 1153580118
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.data[4].m_ParentHash
-      value: 756556552
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.data[5].m_ParentHash
-      value: 756556552
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816003551241, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_ParentHash.Array.data[6].m_ParentHash
-      value: 756556552
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 315987816196227197, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
@@ -28616,11 +28614,7 @@ PrefabInstance:
       objectReference: {fileID: 600166866}
     - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: orthographic size
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_OcclusionCulling
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 315987817269177725, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
@@ -28679,24 +28673,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 600166866}
     - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_CameraType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_RenderShadows
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_RendererIndex
-      value: -1
-      objectReference: {fileID: 0}
+      propertyPath: m_Cameras.Array.data[0]
+      value: 
+      objectReference: {fileID: 203863197}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
---- !u!95 &1192682105 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 3371799261262927014, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-  m_PrefabInstance: {fileID: 1192682104}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1268033779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}

@@ -18,10 +18,10 @@ public class PlayerAnimator : MonoBehaviour
     private const string SHOOTING_RELEASING = "ShootingReleasing";
 
 
-    [SerializeField] PlayerController player;
 
     private Animator animator;
     private InputManager inputManager;
+    private PlayerController player;
 
 
     private bool isBowTensionReachedMax;
@@ -38,8 +38,10 @@ public class PlayerAnimator : MonoBehaviour
         inputManager = InputManager.GetInstance();
         inputManager.OnShootPerformed += OnShootPerformed;
         inputManager.OnShootCanceled += OnShootCanceled;
+        player = transform.parent.GetComponent<PlayerController>();
         player.OnDied += PlayerOnDied;
         player.OnMaximumBowTensionReached += OnMaximumBowTensionReached;
+        
         
     }
 
