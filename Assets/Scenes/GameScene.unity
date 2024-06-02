@@ -130,38 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -7727397722937929933, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: m_BodyType
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7727397722937929933, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: m_GravityScale
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: tintFadeSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: materialTintColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: materialTintColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: materialTintColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 652145740}
-    - target: {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8977706257488661628, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
@@ -210,8 +178,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: -7365090909672145066, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
 --- !u!1 &38938620
 GameObject:
@@ -28450,11 +28417,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 7916256093991758160, guid: dbae82f9e13bdbc45bccfc55af9ba89f, type: 3}
---- !u!1 &652145740 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8977706257488661628, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-  m_PrefabInstance: {fileID: 24862673}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &716676975
 GameObject:
   m_ObjectHideFlags: 0
@@ -30237,15 +30199,7 @@ PrefabInstance:
       objectReference: {fileID: 185048930}
     - target: {fileID: 5606082582349799395, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
       propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ApplyShader
-      objectReference: {fileID: 0}
-    - target: {fileID: 5606082582349799395, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EnemyController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5606082582349799395, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
-      propertyPath: onTintTrigger.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      value: HandleShaderEffect
       objectReference: {fileID: 0}
     - target: {fileID: 8977706257488661628, guid: d235768b4c6162b498dbf873c36561d3, type: 3}
       propertyPath: m_Name

@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class TintEffect : MonoBehaviour
 {
@@ -11,10 +9,6 @@ public class TintEffect : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     [SerializeField] private Color materialTintColor;
     [SerializeField] private float tintFadeSpeed = 2f;
-
-    [System.Serializable]
-    public class TintEvent : UnityEvent { }
-    [SerializeField] private TintEvent onTintTrigger;
 
     private void Awake()
     {
@@ -28,13 +22,6 @@ public class TintEffect : MonoBehaviour
             enabled = false;
             return;
         }
-
-        onTintTrigger.AddListener(OnTintTriggered);
-    }
-
-    private void OnTintTriggered()
-    {
-        materialTintColor.a = 1f;
     }
 
     void Update()
@@ -48,6 +35,12 @@ public class TintEffect : MonoBehaviour
 
     public void TriggerTintEffect()
     {
-        onTintTrigger.Invoke();
+        materialTintColor.a = 1f;
+
+    }
+
+    public void TriggerTintEffect(float magnitude)
+    {
+        materialTintColor.a = magnitude;
     }
 }

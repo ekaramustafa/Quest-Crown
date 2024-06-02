@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3466610109787275553}
   - component: {fileID: 4349093170092362394}
   - component: {fileID: 5606082582349799395}
+  - component: {fileID: 5039049354059164546}
   m_Layer: 12
   m_Name: EnemyVisual
   m_TagString: Untagged
@@ -120,21 +121,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materialTintColor: {r: 0.6792453, g: 0, b: 0, a: 0}
   tintFadeSpeed: 2
-  onTintTrigger:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 8977706257488661628}
-        m_TargetAssemblyTypeName: EnemyController, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+--- !u!114 &5039049354059164546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7637920636332450405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d94913dce224d4cbaddc1c5bb1b1e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectMagnitude: 1
 --- !u!1 &8977706257488661628
 GameObject:
   m_ObjectHideFlags: 0

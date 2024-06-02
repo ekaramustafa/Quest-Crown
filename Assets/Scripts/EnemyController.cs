@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
@@ -12,19 +13,12 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private float health = 100f;
     [SerializeField] private float knockBackDuration = 0.5f;
 
-
     public event EventHandler OnDamageTaken;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        OnDamageTaken += HandleOnDamageTaken;
-    }
-
-    public void HandleOnDamageTaken(object sender, EventArgs e)
-    {
-        
     }
 
     private void Update()
@@ -50,8 +44,8 @@ public class EnemyController : MonoBehaviour
 
     public void TakeDamage(float damage, Vector2 knockBack)
     {
-        health -= damage;
         OnDamageTaken?.Invoke(this, EventArgs.Empty);
+        health -= damage;
         if (health <= 0)
         {
             Destroy(this.gameObject);
