@@ -144,7 +144,7 @@ MonoBehaviour:
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
-  m_AnimatedTarget: {fileID: 0}
+  m_AnimatedTarget: {fileID: 3371799261262927014}
   m_LayerIndex: 0
   m_ShowDebugText: 0
   m_ChildCameras:
@@ -182,6 +182,12 @@ MonoBehaviour:
   - m_Hash: -1813075869
     m_ParentHash: 756556552
   - m_Hash: -1752896643
+    m_ParentHash: 756556552
+  - m_Hash: 916296144
+    m_ParentHash: 756556552
+  - m_Hash: -2026628701
+    m_ParentHash: 756556552
+  - m_Hash: 1153580118
     m_ParentHash: 756556552
 --- !u!114 &5468438735103953860
 MonoBehaviour:
@@ -356,7 +362,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 6
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -369,7 +375,7 @@ Camera:
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 0
+  m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!81 &315987816486818043
@@ -426,11 +432,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 0}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
@@ -899,5 +906,10 @@ PrefabInstance:
 --- !u!4 &2602554894225356819 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
+  m_PrefabInstance: {fileID: 3371799261223535258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3371799261262927014 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 111613500, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
   m_PrefabInstance: {fileID: 3371799261223535258}
   m_PrefabAsset: {fileID: 0}

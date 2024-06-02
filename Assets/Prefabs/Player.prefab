@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 111613499}
   - component: {fileID: 111613500}
   - component: {fileID: 111613501}
+  - component: {fileID: 1192682109}
+  - component: {fileID: 6934342023213259969}
   m_Layer: 9
   m_Name: PlayerVisual
   m_TagString: Untagged
@@ -54,7 +56,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 0a737ab814e07ad42a03c16a64f55f47, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,7 +120,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eaa3e6eed193e04a9e9ae47423564a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 780574586581744263}
+--- !u!114 &1192682109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111613497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 22682e3a25b93e04a8684b1b76e81966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  materialTintColor: {r: 1, g: 0, b: 0, a: 0}
+  tintFadeSpeed: 6
+--- !u!114 &6934342023213259969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 111613497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b0a85e05b5ac614c9690054422c054f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2577094832069390336
 GameObject:
   m_ObjectHideFlags: 0
