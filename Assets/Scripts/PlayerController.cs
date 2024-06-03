@@ -255,13 +255,15 @@ public class PlayerController : MonoBehaviour
         float direction = Mathf.Sign(transform.localScale.x);
         arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
         //Add knocback
-        rb.velocity = new Vector2(-direction * knockBackSpeed, rb.velocity.y);
+        Vector2 knockBackForce = new Vector2(-direction * knockBackSpeed, 0);
+        rb.AddForce(knockBackForce, ForceMode2D.Impulse);
 
     }
 
+
     private void FlipSprite()
     {
-        if (!HasHorizantalSpeed()) return;
+        if (!IsWalking()) return;
         transform.localScale = new Vector2(Mathf.Sign(rb.velocity.x), 1f);
     }
 
@@ -269,11 +271,6 @@ public class PlayerController : MonoBehaviour
     {
         bool playerHasVerticalSpeed = Math.Abs(rb.velocity.y) > Mathf.Epsilon;
         return playerHasVerticalSpeed;
-    }
-    public bool HasHorizantalSpeed()
-    {
-        bool playerHasHorizantalSpeed = Math.Abs(rb.velocity.x) > Mathf.Epsilon;
-        return playerHasHorizantalSpeed;
     }
 
     public bool IsWalking()
