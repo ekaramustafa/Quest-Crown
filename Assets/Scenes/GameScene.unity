@@ -28597,6 +28597,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCameraGroup
       objectReference: {fileID: 0}
+    - target: {fileID: 315987817444813267, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -28646,8 +28650,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 600166866}
     - target: {fileID: 2602554894225356829, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: runDeccelAmount
-      value: 15
+      propertyPath: jumpSpeed
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602554894225356831, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_GravityScale
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_Cameras.Array.data[0]
