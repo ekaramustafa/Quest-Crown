@@ -51,9 +51,9 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Maximum fall speed to improve gameplay")]
     [SerializeField] private float maxFallSpeed = 30f;
 
-    [Tooltip("Let the player hang a bit in the air before fall speed increases with maxFallSpeed")]
+    [Tooltip("Let the player hang a bit in the air before fall speed increases with fallGravityMult")]
     [SerializeField] private float jumpHangSpeedThreshold = 1f;
-    [Tooltip("Decrease the gravity close to the apex of the jump")]
+    [Tooltip("Decrease the gravity close to the apex of the jump for smoothness")]
     [SerializeField] private float jumpHangGravityMult = 0.8f;
 
     //These two variables are for implementing coyote time
