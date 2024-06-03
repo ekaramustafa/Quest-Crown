@@ -230,8 +230,11 @@ MonoBehaviour:
   jumpForce: 18
   coyoteTime: 0.15
   jumpInputBufferTime: 0.1
-  jumpCutGravityMult: 1.5
-  maxFallSpeed: 50
+  jumpCutGravityMult: 1.75
+  fallGravityMult: 2.25
+  maxFallSpeed: 30
+  jumpHangSpeedThreshold: 1
+  jumpHangGravityMult: 0.8
   maxShootingVelocity: {x: 30, y: 15}
   minShootingVelocity: {x: 15, y: 5}
   tensionIncreaseRate: {x: 5, y: 5}

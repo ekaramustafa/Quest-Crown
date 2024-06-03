@@ -41,12 +41,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private float jumpInputBufferTime = 0.1f;
-    [Tooltip("")]
-    [SerializeField] private float jumpCutGravityMult = 0.4f;
-    [SerializeField] private float maxFallSpeed = 10f;
+    
+    [Tooltip("Increase scale when the jump button is released")]
+    [SerializeField] private float jumpCutGravityMult = 1.75f;
+    
+    [Tooltip("Increase scale when jumpCutGravityMult not implemented but the player is in air")]
+    [SerializeField] private float fallGravityMult = 2.5f;
+    
+    [Tooltip("Maximum fall speed to improve gameplay")]
+    [SerializeField] private float maxFallSpeed = 30f;
+
+    [Tooltip("Let the player hang a bit in the air before fall speed increases with maxFallSpeed")]
+    [SerializeField] private float jumpHangSpeedThreshold = 1f;
+    [Tooltip("Decrease the gravity close to the apex of the jump")]
+    [SerializeField] private float jumpHangGravityMult = 0.8f;
+
+    //These two variables are for implementing coyote time
     private float lastPressedJumpTime;
     private float lastOnGroundTime;
     private bool isJumping;
+    //for variable length jump
     private bool isJumpCut;
 
 
@@ -161,8 +175,21 @@ public class PlayerController : MonoBehaviour
 
         if (isJumpCut)
         {
+            //Gives the variable length feature
             SetGravityScale(DEFAULT_GRAVITY * jumpCutGravityMult);
             rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -maxFallSpeed));
+        }
+        else if (isJumping && Mathf.Abs(rb.velocity.y) < jumpHangSpeedThreshold)
+        {
+            //Let player hang a bit for better transition to jumpCut gravity increase
+            SetGravityScale(DEFAULT_GRAVITY * jumpHangGravityMult);
+        }
+        else if (rb.velocity.y < 0)
+        {
+            //If the player is falling down increase the gravity a bit.
+            SetGravityScale(DEFAULT_GRAVITY * fallGravityMult);
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -maxFallSpeed));
+            
         }
         else
         {
