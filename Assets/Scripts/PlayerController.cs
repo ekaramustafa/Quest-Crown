@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,22 +11,27 @@ public class PlayerController : MonoBehaviour
     public event EventHandler OnDied;
     public event EventHandler OnMaximumBowTensionReached;
 
+    #region Movement Booleans
     private bool isWalking;
     private bool isClimbing;
-
-    private Vector2 shootingVelocity;
     private bool isPullingBow;
-
-    private float gravityScaleAtStart;
     private bool canMove;
     private bool isAlive;
+    #endregion
 
+    #region Other variables
+    private Vector2 shootingVelocity;
+    private float gravityScaleAtStart;
+    #endregion
+
+    #region Cache variables
     private Rigidbody2D rb;
     private CapsuleCollider2D bodyCol;
     private BoxCollider2D footCol;
 
     private InputManager inputManager;
     private GameManager gameManager;
+    #endregion
 
     [Header("Tunable Params")]
     [SerializeField] private float walkSpeed = 10f;
@@ -46,6 +52,20 @@ public class PlayerController : MonoBehaviour
 
     [Header("Transforms")]
     [SerializeField] private Transform gunTransform;
+
+    [Space(5)]
+    [Header("Run")]
+    [Tooltip("The top speed the player can reach")]
+    [SerializeField]private float runMaxSpeed = 10f;
+    [Tooltip("Smoothing the behaviour, be careful about animations")]
+    [SerializeField]private float runLerpAmount = 2f;
+    [SerializeField]private float runAccelAmount = 7f;
+    [SerializeField]private float runDeccelAmount = 7f;
+    [Tooltip("Threshold for acceleration to set IsWalking to true")]
+    [SerializeField] private float acclMovementThreshold = 0.01f;
+    [Tooltip("Threshold for deceleration to set IsWalking to true")]
+    [SerializeField] private float declMovementThreshold = 2f;
+    
 
     private void Awake()
     {
@@ -75,7 +95,9 @@ public class PlayerController : MonoBehaviour
 
     }
     // Update is called once per frame
-    void Update()
+    
+
+    private void FixedUpdate()
     {
         if (!isAlive) return;
         HandleBowTension();
@@ -111,18 +133,43 @@ public class PlayerController : MonoBehaviour
             bodyCol.enabled = false;
             footCol.enabled = false;
             gameManager.ChangeStateTo(GameManager.GameState.GAMEOVER);
+
         }
     }
 
     private void Walk()
     {
         Vector2 movementVector = inputManager.GetMovementVector(); 
-        Vector2 playerVelocity = new Vector2(movementVector.x * walkSpeed, rb.velocity.y);
-        rb.velocity = playerVelocity;
 
-        if (HasHorizantalSpeed())
+        float targetSpeed = movementVector.x * runMaxSpeed;
+        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, runLerpAmount);
+
+
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAccelAmount : runDeccelAmount;
+
+
+        float speedDif = targetSpeed - rb.velocity.x;
+
+
+        float movement = speedDif * accelRate;
+
+        rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+        if(accelRate == runAccelAmount)
+        {
+            if(Mathf.Abs(rb.velocity.x) > acclMovementThreshold)
+            {
+                isWalking = true;
+            }
+            else
+            {
+                isWalking = false;
+            }
+        }
+        else if (Mathf.Abs(rb.velocity.x) > declMovementThreshold)
         {
             isWalking = true;
+
         }
         else
         {

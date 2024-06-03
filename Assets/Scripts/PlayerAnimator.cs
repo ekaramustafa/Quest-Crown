@@ -26,6 +26,10 @@ public class PlayerAnimator : MonoBehaviour
 
     private bool isBowTensionReachedMax;
 
+
+
+    private bool isWalkingPrevious;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -41,8 +45,9 @@ public class PlayerAnimator : MonoBehaviour
         player = transform.parent.GetComponent<PlayerController>();
         player.OnDied += PlayerOnDied;
         player.OnMaximumBowTensionReached += OnMaximumBowTensionReached;
-        
-        
+        isWalkingPrevious = player.IsWalking();
+
+
     }
 
     private void OnMaximumBowTensionReached(object sender, EventArgs e)
@@ -60,12 +65,13 @@ public class PlayerAnimator : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+
+    private void FixedUpdate()
     {
         animator.SetBool(IS_WALKING, player.IsWalking());
         animator.SetBool(IS_CLIMBING, player.IsClimbing());
     }
-    
+
     private void OnShootPerformed(object sender, EventArgs e)
     {
         animator.SetBool(SHOOTING_RELEASING, false);

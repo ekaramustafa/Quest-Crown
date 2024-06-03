@@ -28645,6 +28645,10 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 600166866}
+    - target: {fileID: 2602554894225356829, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: runDeccelAmount
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 

@@ -315,6 +315,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   gunTransform: {fileID: 4381867311905775894}
+  runMaxSpeed: 10
+  runLerpAmount: 1
+  runAccelAmount: 7
+  runDeccelAmount: 15
+  acclMovementThreshold: 0.01
+  declMovementThreshold: 2
 --- !u!61 &1192505042659374966
 BoxCollider2D:
   m_ObjectHideFlags: 0
