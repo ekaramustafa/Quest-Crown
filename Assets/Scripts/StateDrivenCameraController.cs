@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CodeMonkey.Utils;
 using UnityEngine.Diagnostics;
+using Unity.VisualScripting;
 
 public class StateDrivenCameraController : MonoBehaviour
 {
@@ -20,13 +21,31 @@ public class StateDrivenCameraController : MonoBehaviour
 
     private InputManager inputManager;
 
+
+    private List<CinemachineFramingTransposer> framingTransposers;
+
+
+    private void Awake()
+    {
+        framingTransposers = new List<CinemachineFramingTransposer>();
+    }
+
     private void Start()
     {
         inputManager = InputManager.GetInstance();
+        
         foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
         {
             cam.GetComponent<CinemachineConfiner>().m_BoundingShape2D = GameManager.GetInstance().GetConfinerCollider();
         }
+
+        foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
+        {
+            CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
+            framingTransposers.Add(transposer);
+        }
+
+
         if (GameManager.GetInstance().PlayerCount != 1)
         {
             playerCamera.GetComponent<AudioListener>().enabled = false;
@@ -42,19 +61,16 @@ public class StateDrivenCameraController : MonoBehaviour
     {
         if(GameManager.GetInstance().GetGameState() == GameManager.GameState.GAMEOVER)
         {
-            foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
+            foreach (CinemachineFramingTransposer transposer in framingTransposers)
             {
-                CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
-               // if (transposer.m_TrackedObjectOffset == Vector3.zero) return;
                 transposer.m_TrackedObjectOffset = Vector3.Lerp(transposer.m_TrackedObjectOffset, Vector3.zero, lerpSpeed * Time.deltaTime);
             }
                 return;
         }
        
-        foreach (CinemachineVirtualCamera cam in cinemachineVirtualCameras)
+        foreach (CinemachineFramingTransposer transposer in framingTransposers)
         {
             Vector2 mouseDelta = inputManager.GetMouseDelta();
-            CinemachineFramingTransposer transposer = cam.GetCinemachineComponent<CinemachineFramingTransposer>();
             Vector3 currentOffset = transposer.m_TrackedObjectOffset;
             Vector3 targetOffset = currentOffset + new Vector3(mouseDelta.x * offsetSpeed * Time.deltaTime, mouseDelta.y * offsetSpeed * Time.deltaTime, 0f);
 
@@ -69,7 +85,7 @@ public class StateDrivenCameraController : MonoBehaviour
             }
 
             //To split the sprite when the player is in idle and look opposite directions
-            if (!player.GetComponent<PlayerController>().HasHorizantalSpeed())
+            if (!player.GetComponent<PlayerController>().IsWalking())
             {
 
                 if (transposer.m_TrackedObjectOffset.x < -1f)
