@@ -227,7 +227,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 073c15c1ac28bf44f83c6720e6540d52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 17
+  jumpForce: 18
+  coyoteTime: 0.15
+  jumpInputBufferTime: 0.1
+  jumpCutGravityMult: 1.5
+  maxFallSpeed: 50
   maxShootingVelocity: {x: 30, y: 15}
   minShootingVelocity: {x: 15, y: 5}
   tensionIncreaseRate: {x: 5, y: 5}

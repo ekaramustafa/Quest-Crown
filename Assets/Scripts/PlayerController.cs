@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Other variables
+    private float DEFAULT_GRAVITY;
     private float gravityScaleAtStart;
     #endregion
 
@@ -40,9 +41,15 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float coyoteTime = 0.2f;
     [SerializeField] private float jumpInputBufferTime = 0.1f;
+    [Tooltip("")]
+    [SerializeField] private float jumpCutGravityMult = 0.4f;
+    [SerializeField] private float maxFallSpeed = 10f;
     private float lastPressedJumpTime;
     private float lastOnGroundTime;
     private bool isJumping;
+    private bool isJumpCut;
+
+
     #endregion
     #region Shooting
     private Vector2 shootingVelocity;
@@ -91,6 +98,7 @@ public class PlayerController : MonoBehaviour
         bodyCol = GetComponent<CapsuleCollider2D>();
         footCol = GetComponent<BoxCollider2D>();
         gravityScaleAtStart = rb.gravityScale;
+        DEFAULT_GRAVITY = rb.gravityScale;
         canMove = true;
         isAlive = true;
 
@@ -110,13 +118,15 @@ public class PlayerController : MonoBehaviour
     {
         inputManager = InputManager.GetInstance();
         gameManager = GameManager.GetInstance();
-        inputManager.OnJump += OnJumpPerformed;
+        inputManager.OnJumpStarted += OnJumpPerformed;
+        inputManager.OnJumpCanceled += OnJumpCanceled;
         inputManager.OnShootPerformed += OnShootPerformed;
         inputManager.OnShootCanceled += OnShootCanceled; 
 
     }
+
     // Update is called once per frame
-    
+
 
     private void FixedUpdate()
     {
@@ -132,12 +142,9 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJump()
     {
-        if (!isJumping)
-        {
-            if (footCol.IsTouchingLayers(groundLayerMask))
-            {
-                lastOnGroundTime = coyoteTime;
-            }
+        if (!isJumping && footCol.IsTouchingLayers(groundLayerMask))
+        {       
+            lastOnGroundTime = coyoteTime;
         }
 
         lastPressedJumpTime -= Time.deltaTime;
@@ -147,7 +154,27 @@ public class PlayerController : MonoBehaviour
             isJumping = false;
         }
 
+        if(lastOnGroundTime > 0 && !isJumping)
+        {
+            isJumpCut = false;
+        }
 
+        if (isJumpCut)
+        {
+            SetGravityScale(DEFAULT_GRAVITY * jumpCutGravityMult);
+            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -maxFallSpeed));
+        }
+        else
+        {
+            SetGravityScale(DEFAULT_GRAVITY);
+        }
+
+    }
+
+    private void SetGravityScale(float value)
+    {
+        gravityScaleAtStart = value;
+        rb.gravityScale = value;
     }
 
     private void OnJumpPerformed(object sender, EventArgs e)
@@ -168,6 +195,7 @@ public class PlayerController : MonoBehaviour
         
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);  
         isJumping = true;
+        isJumpCut = false;
         
     }
 
@@ -175,6 +203,20 @@ public class PlayerController : MonoBehaviour
     {
         return lastOnGroundTime > 0f && !isJumping && lastPressedJumpTime > 0f;
     }
+
+    private void OnJumpCanceled(object sender, EventArgs e)
+    {
+        if (CanJumpCut())
+        {            
+            isJumpCut = true;
+        }
+    }
+
+    private bool CanJumpCut()
+    {
+        return isJumping && rb.velocity.y > 0;
+    }
+
 
     public void Die()
     {

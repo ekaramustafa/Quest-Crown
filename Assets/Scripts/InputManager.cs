@@ -13,7 +13,8 @@ public class InputManager : MonoBehaviour
     // Start is called before the first frame update
 
 
-    public event EventHandler OnJump;
+    public event EventHandler OnJumpStarted;
+    public event EventHandler OnJumpCanceled;
     public event EventHandler OnJoin;
     public event EventHandler OnShootPerformed;
     public event EventHandler OnShootCanceled;
@@ -39,11 +40,18 @@ public class InputManager : MonoBehaviour
 
         inputActions.Player.Enable();
         inputActions.Player.Jump.performed += JumpPerformed;
+        inputActions.Player.Jump.canceled += JumpCanceled;
         inputActions.Player.Join.performed += JoinPerformed;
         inputActions.Player.Fire.performed += FirePerformed;
         inputActions.Player.Fire.canceled += FireCanceled;
+       
 
 
+    }
+
+    private void JumpCanceled(InputAction.CallbackContext obj)
+    {
+        OnJumpCanceled?.Invoke(this, EventArgs.Empty);
     }
 
     private void FireCanceled(InputAction.CallbackContext obj)
@@ -61,6 +69,8 @@ public class InputManager : MonoBehaviour
     {
         inputActions.Player.Jump.performed -= JumpPerformed;
         inputActions.Player.Join.performed -= JoinPerformed;
+        inputActions.Player.Fire.performed -= FirePerformed;
+        inputActions.Player.Fire.performed -= FireCanceled;
         inputActions.Dispose();
     }
 
@@ -73,7 +83,7 @@ public class InputManager : MonoBehaviour
 
     private void JumpPerformed(InputAction.CallbackContext obj)
     {
-        OnJump?.Invoke(this, EventArgs.Empty);
+        OnJumpStarted?.Invoke(this, EventArgs.Empty);
     }
 
 
