@@ -186,10 +186,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 780574586581744265}
+  - component: {fileID: 780574586581744263}
   - component: {fileID: 780574586581744258}
   - component: {fileID: 780574586581744261}
   - component: {fileID: 780574586581744260}
-  - component: {fileID: 780574586581744263}
   - component: {fileID: 1192505042659374966}
   m_Layer: 9
   m_Name: Player
@@ -215,6 +215,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &780574586581744263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3074151698171412935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073c15c1ac28bf44f83c6720e6540d52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 17
+  maxShootingVelocity: {x: 30, y: 15}
+  minShootingVelocity: {x: 15, y: 5}
+  tensionIncreaseRate: {x: 5, y: 5}
+  runMaxSpeed: 10
+  runLerpAmount: 1
+  runAccelAmount: 7
+  runDeccelAmount: 15
+  acclMovementThreshold: 0.01
+  declMovementThreshold: 2
+  climbSpeed: 6
+  knockBackSpeed: 20
+  deathKick: {x: 0, y: 10}
+  gunTransform: {fileID: 4381867311905775894}
+  groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
+  climbingLayerMask:
+    serializedVersion: 2
+    m_Bits: 256
+  enemiesLayerMask:
+    serializedVersion: 2
+    m_Bits: 4096
+  hazardLayerMask:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!70 &780574586581744258
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -246,7 +284,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 3
+  m_GravityScale: 6
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -282,45 +320,6 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &780574586581744263
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3074151698171412935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073c15c1ac28bf44f83c6720e6540d52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  walkSpeed: 10
-  jumpSpeed: 12
-  climbSpeed: 6
-  knockBackSpeed: 20
-  deathKick: {x: 0, y: 10}
-  maxShootingVelocity: {x: 30, y: 15}
-  minShootingVelocity: {x: 10, y: 5}
-  tensionIncreaseRate: {x: 5, y: 5}
-  groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 192
-  climbingLayerMask:
-    serializedVersion: 2
-    m_Bits: 256
-  enemiesLayerMask:
-    serializedVersion: 2
-    m_Bits: 4096
-  hazardLayerMask:
-    serializedVersion: 2
-    m_Bits: 8192
-  gunTransform: {fileID: 4381867311905775894}
-  runMaxSpeed: 10
-  runLerpAmount: 1
-  runAccelAmount: 7
-  runDeccelAmount: 15
-  acclMovementThreshold: 0.01
-  declMovementThreshold: 2
 --- !u!61 &1192505042659374966
 BoxCollider2D:
   m_ObjectHideFlags: 0

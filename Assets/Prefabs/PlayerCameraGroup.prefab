@@ -853,13 +853,9 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 315987816486818020}
-    - target: {fileID: 780574586581744261, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: m_GravityScale
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 780574586581744263, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
-      propertyPath: jumpSpeed
-      value: 17
+      propertyPath: coyoteTime
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 780574586581744265, guid: c594f39d1ab85784e974114d97799ba0, type: 3}
       propertyPath: m_RootOrder

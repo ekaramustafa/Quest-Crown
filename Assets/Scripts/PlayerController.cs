@@ -8,8 +8,10 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 { 
+    #region Events
     public event EventHandler OnDied;
     public event EventHandler OnMaximumBowTensionReached;
+    #endregion
 
     #region Movement Booleans
     private bool isWalking;
@@ -20,7 +22,6 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Other variables
-    private Vector2 shootingVelocity;
     private float gravityScaleAtStart;
     #endregion
 
@@ -33,27 +34,24 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     #endregion
 
-    [Header("Tunable Params")]
-    [SerializeField] private float walkSpeed = 10f;
-    [SerializeField] private float jumpSpeed = 10f;
-    [SerializeField] private float climbSpeed = 10f;
-    [SerializeField] private float knockBackSpeed = 10f;
-    [SerializeField] private Vector2 deathKick = new Vector3(0f,10f);
-    //TO-DO Add maximum shooting velocity and change the velocity depending on holding time
-    [SerializeField] private Vector2 maxShootingVelocity = new Vector2(25f, 12f);
-    [SerializeField] private Vector2 minShootingVelocity = new Vector2(10f, 5f);
-    [SerializeField] private Vector2 tensionIncreaseRate = new Vector2(3f,3f);
 
-    [Header("Masks")]
-    [SerializeField] private LayerMask groundLayerMask;
-    [SerializeField] private LayerMask climbingLayerMask;
-    [SerializeField] private LayerMask enemiesLayerMask;
-    [SerializeField] private LayerMask hazardLayerMask;
+    #region Jumping
+    [Header("Jump")]
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float coyoteTime = 0.2f;
+    [SerializeField] private float jumpInputBufferTime = 0.1f;
+    private float lastPressedJumpTime;
+    private float lastOnGroundTime;
+    private bool isJumping;
+    #endregion
+    #region Shooting
+    private Vector2 shootingVelocity;
+    [Header("Shooting")]
+    [SerializeField] private Vector2 maxShootingVelocity = new Vector2(30f, 15f);
+    [SerializeField] private Vector2 minShootingVelocity = new Vector2(15f, 5f);
+    [SerializeField] private Vector2 tensionIncreaseRate = new Vector2(5f,5f);
+    #endregion
 
-    [Header("Transforms")]
-    [SerializeField] private Transform gunTransform;
-
-    [Space(5)]
     [Header("Run")]
     [Tooltip("The top speed the player can reach")]
     [SerializeField]private float runMaxSpeed = 10f;
@@ -65,7 +63,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float acclMovementThreshold = 0.01f;
     [Tooltip("Threshold for deceleration to set IsWalking to true")]
     [SerializeField] private float declMovementThreshold = 2f;
-    
+
+
+    [Header("Other Tunable Params")]
+    [SerializeField] private float climbSpeed = 10f;
+    [SerializeField] private float knockBackSpeed = 10f;
+    [SerializeField] private Vector2 deathKick = new Vector3(0f, 10f);
+
+
+    [Space(5)]
+    [Header("Transforms")]
+    [SerializeField] private Transform gunTransform;
+
+
+    [Space(5)]
+    [Header("Masks")]
+    [SerializeField] private LayerMask groundLayerMask;
+    [SerializeField] private LayerMask climbingLayerMask;
+    [SerializeField] private LayerMask enemiesLayerMask;
+    [SerializeField] private LayerMask hazardLayerMask;
+
 
     private void Awake()
     {
@@ -83,6 +100,10 @@ public class PlayerController : MonoBehaviour
         //Shooting
         shootingVelocity = Vector2.zero;
         isPullingBow = false;
+
+        lastPressedJumpTime = 0f;
+        lastOnGroundTime = 0f;
+        isJumping = false;
     }
 
     private void Start()
@@ -106,18 +127,48 @@ public class PlayerController : MonoBehaviour
         Walk();
         Climb();
         FlipSprite();
+        HandleJump();
     }
 
+    private void HandleJump()
+    {
+        if (!isJumping)
+        {
+            if (footCol.IsTouchingLayers(groundLayerMask))
+            {
+                lastOnGroundTime = coyoteTime;
+            }
+        }
+
+        lastPressedJumpTime -= Time.deltaTime;
+        lastOnGroundTime -= Time.deltaTime;
+        if(isJumping && rb.velocity.y < 0f)
+        {
+            isJumping = false;
+        }
+
+
+    }
 
     private void OnJumpPerformed(object sender, EventArgs e)
     {
-        if (!canMove || !isAlive) return;
-        if (footCol.IsTouchingLayers(groundLayerMask))
-        {
-            rb.velocity += new Vector2(0f, jumpSpeed);
-        }
+        lastPressedJumpTime = jumpInputBufferTime;
+        if (!canMove || !isAlive || !CanJump()) return;
+        lastPressedJumpTime = 0f;
+        lastOnGroundTime = 0f;
+        float force = jumpForce;
+        if (rb.velocity.y < 0)
+            force -= rb.velocity.y;
+        
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);  
+        isJumping = true;
+        
     }
 
+    private bool CanJump()
+    {
+        return lastOnGroundTime > 0f && !isJumping && lastPressedJumpTime > 0f;
+    }
 
     public void Die()
     {
@@ -144,12 +195,9 @@ public class PlayerController : MonoBehaviour
         float targetSpeed = movementVector.x * runMaxSpeed;
         targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, runLerpAmount);
 
-
         float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAccelAmount : runDeccelAmount;
 
-
         float speedDif = targetSpeed - rb.velocity.x;
-
 
         float movement = speedDif * accelRate;
 
