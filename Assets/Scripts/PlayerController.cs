@@ -152,6 +152,12 @@ public class PlayerController : MonoBehaviour
 
     private void OnJumpPerformed(object sender, EventArgs e)
     {
+        /*
+         * I know this function may  seem very confusing. We check whether the player is grounded in HandleJump function.
+         * If the player is not jumping and on ground, we set lastOnGroundTime to coyoteTime.
+         * CanJump will check whether the player is in the air (isJumping), and other two variables.
+         * 
+         */
         lastPressedJumpTime = jumpInputBufferTime;
         if (!canMove || !isAlive || !CanJump()) return;
         lastPressedJumpTime = 0f;
