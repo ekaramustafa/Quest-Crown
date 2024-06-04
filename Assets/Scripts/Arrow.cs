@@ -11,6 +11,7 @@ public class Arrow : MonoBehaviour
     [Header("LayerMasks")]
     [SerializeField] private LayerMask destroyLayer;
     [SerializeField] private LayerMask hitLayer;
+    [SerializeField] private LayerMask slowLayer;
 
     [Header("Tunable parameters")]
     [SerializeField] private float drag = 0.3f;
@@ -38,6 +39,8 @@ public class Arrow : MonoBehaviour
     {
         velocity += gravity * Time.deltaTime;
 
+        //velocity *= 1.0f;
+
         velocity -= velocity.sqrMagnitude * drag * velocity.normalized * Time.deltaTime;
         Vector3 amountToMove = new Vector3(velocity.x, velocity.y, 0f) * Time.deltaTime;
         transform.position += amountToMove;
@@ -60,6 +63,11 @@ public class Arrow : MonoBehaviour
         if ((destroyLayer.value & (1 << collision.gameObject.layer)) != 0)
         {
             Destroy(gameObject);
+        }
+
+        if ((slowLayer.value & (1 << collision.gameObject.layer)) != 0)
+        {
+            velocity *= 0.6f;
         }
     }
 }

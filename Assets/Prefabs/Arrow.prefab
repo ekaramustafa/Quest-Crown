@@ -131,6 +131,9 @@ MonoBehaviour:
   hitLayer:
     serializedVersion: 2
     m_Bits: 4608
+  slowLayer:
+    serializedVersion: 2
+    m_Bits: 16
   drag: 0.3
   damage: 50
   knockBack: {x: 5, y: 5}
