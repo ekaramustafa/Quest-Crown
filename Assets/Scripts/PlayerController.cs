@@ -1,13 +1,8 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using UnityEditorInternal;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
-{ 
+{
     #region Events
     public event EventHandler OnDied;
     public event EventHandler OnMaximumBowTensionReached;
@@ -21,12 +16,12 @@ public class PlayerController : MonoBehaviour
     private bool isAlive;
     #endregion
 
-    #region Other variables
+    #region Gravity Variables
     private float DEFAULT_GRAVITY;
     private float gravityScaleAtStart;
     #endregion
 
-    #region Cache variables
+    #region Cache Variables
     private Rigidbody2D rb;
     private CapsuleCollider2D bodyCol;
     private BoxCollider2D footCol;
@@ -35,67 +30,55 @@ public class PlayerController : MonoBehaviour
     private GameManager gameManager;
     #endregion
 
-
-    #region Jumping
+    #region Jumping Variables
     [Header("Jump")]
     [SerializeField] private float jumpForce = 10f;
-    [SerializeField] private float coyoteTime = 0.2f;
+    [SerializeField] private float coyoteTime = 0.12f;
     [SerializeField] private float jumpInputBufferTime = 0.1f;
-    
-    [Tooltip("Increase scale when the jump button is released")]
     [SerializeField] private float jumpCutGravityMult = 1.75f;
-    
-    [Tooltip("Increase scale when jumpCutGravityMult not implemented but the player is in air")]
     [SerializeField] private float fallGravityMult = 2.5f;
-    
-    [Tooltip("Maximum fall speed to improve gameplay")]
-    [SerializeField] private float maxFallSpeed = 30f;
-
-    [Tooltip("Let the player hang a bit in the air before fall speed increases with fallGravityMult")]
     [SerializeField] private float jumpHangSpeedThreshold = 1f;
-    [Tooltip("Decrease the gravity close to the apex of the jump for smoothness")]
     [SerializeField] private float jumpHangGravityMult = 0.8f;
 
-    //These two variables are for implementing coyote time
     private float lastPressedJumpTime;
     private float lastOnGroundTime;
     private bool isJumping;
-    //for variable length jump
     private bool isJumpCut;
-
-
     #endregion
-    #region Shooting
+
+    #region Shooting Variables
     private Vector2 shootingVelocity;
     [Header("Shooting")]
     [SerializeField] private Vector2 maxShootingVelocity = new Vector2(30f, 15f);
     [SerializeField] private Vector2 minShootingVelocity = new Vector2(15f, 5f);
-    [SerializeField] private Vector2 tensionIncreaseRate = new Vector2(5f,5f);
+    [SerializeField] private Vector2 tensionIncreaseRate = new Vector2(5f, 5f);
     #endregion
 
+    #region Movement Variables
     [Header("Run")]
-    [Tooltip("The top speed the player can reach")]
-    [SerializeField]private float runMaxSpeed = 10f;
-    [Tooltip("Smoothing the behaviour, be careful about animations")]
-    [SerializeField]private float runLerpAmount = 2f;
-    [SerializeField]private float runAccelAmount = 7f;
-    [SerializeField]private float runDeccelAmount = 7f;
-    [Tooltip("Threshold for acceleration to set IsWalking to true")]
-    [SerializeField] private float acclMovementThreshold = 0.01f;
-    [Tooltip("Threshold for deceleration to set IsWalking to true")]
-    [SerializeField] private float declMovementThreshold = 2f;
-
-
-    [Header("Other Tunable Params")]
-    [SerializeField] private float climbSpeed = 10f;
-    [SerializeField] private float knockBackSpeed = 10f;
-    [SerializeField] private Vector2 deathKick = new Vector3(0f, 10f);
+    [SerializeField] private float walkMaxSpeed = 10f;
+    [SerializeField] private float walkLerpAmount = 2f;
+    [SerializeField] private float walkAccelAmount = 7f;
+    [SerializeField] private float walkDeccelAmount = 7f;
+    [SerializeField] private float walkAcclMovementThreshold = 0.01f;
+    [SerializeField] private float walkDeclMovementThreshold = 2f;
 
 
     [Space(5)]
+    [Header("Climbing")]
+    [SerializeField] private float climbSpeed = 10f;
+    private bool onLadder = false;
+    #endregion
+
+    [Space(5)]
+    [Header("Die&Damage")]
+    [SerializeField] private float knockBackSpeed = 10f;
+    [SerializeField] private Vector2 deathKick = new Vector3(0f, 10f);
+
+    #region Transforms and Layers
+    [Space(5)]
     [Header("Transforms")]
     [SerializeField] private Transform gunTransform;
-
 
     [Space(5)]
     [Header("Masks")]
@@ -103,99 +86,171 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask climbingLayerMask;
     [SerializeField] private LayerMask enemiesLayerMask;
     [SerializeField] private LayerMask hazardLayerMask;
+    #endregion
 
-
+    #region Unity Methods
     private void Awake()
     {
+        InitializeComponents();
+        InitializeVariables();
+    }
 
+    private void Start()
+    {
+        InitializeManagers();
+        RegisterInputEvents();
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isAlive) return;
+
+        HandleBowTension();
+        CheckForDeath();
+
+        if (!canMove) return;
+
+        HandleMovement();
+        FlipSprite();
+        HandleJump();
+    }
+    #endregion
+
+    #region Initialization Methods
+    private void InitializeComponents()
+    {
         rb = GetComponent<Rigidbody2D>();
         bodyCol = GetComponent<CapsuleCollider2D>();
         footCol = GetComponent<BoxCollider2D>();
+    }
+
+    private void InitializeVariables()
+    {
         gravityScaleAtStart = rb.gravityScale;
         DEFAULT_GRAVITY = rb.gravityScale;
         canMove = true;
         isAlive = true;
-
-        isWalking = false;
-        isClimbing = false;
-
-        //Shooting
         shootingVelocity = Vector2.zero;
-        isPullingBow = false;
-
         lastPressedJumpTime = 0f;
         lastOnGroundTime = 0f;
         isJumping = false;
     }
 
-    private void Start()
+    private void InitializeManagers()
     {
         inputManager = InputManager.GetInstance();
         gameManager = GameManager.GetInstance();
+    }
+
+    private void RegisterInputEvents()
+    {
         inputManager.OnJumpStarted += OnJumpPerformed;
         inputManager.OnJumpCanceled += OnJumpCanceled;
         inputManager.OnShootPerformed += OnShootPerformed;
-        inputManager.OnShootCanceled += OnShootCanceled; 
-
+        inputManager.OnShootCanceled += OnShootCanceled;
     }
+    #endregion
 
-    // Update is called once per frame
-
-
-    private void FixedUpdate()
+    #region Movement Methods
+    private void HandleMovement()
     {
-        if (!isAlive) return;
-        HandleBowTension();
-        Die();
-        if (!canMove) return;
         Walk();
         Climb();
-        FlipSprite();
-        HandleJump();
     }
 
+    private void Walk()
+    {
+        Vector2 movementVector = inputManager.GetMovementVector();
+        float targetSpeed = Mathf.Lerp(rb.velocity.x, movementVector.x * walkMaxSpeed, walkLerpAmount);
+        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? walkAccelAmount : walkDeccelAmount;
+        float speedDif = targetSpeed - rb.velocity.x;
+        float movement = speedDif * accelRate;
+
+        rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
+
+        isWalking = (accelRate == walkAccelAmount && Mathf.Abs(rb.velocity.x) > walkAcclMovementThreshold) ||
+                    (Mathf.Abs(rb.velocity.x) > walkDeclMovementThreshold);
+    }
+
+    private void Climb()
+    {
+        if (!bodyCol.IsTouchingLayers(climbingLayerMask))
+        {
+            isClimbing = false;
+            onLadder = false;
+            rb.gravityScale = gravityScaleAtStart;
+            return;
+        }
+
+        Vector2 movementVector = inputManager.GetMovementVector();
+        rb.velocity = new Vector2(rb.velocity.x, movementVector.y * climbSpeed);
+        rb.gravityScale = 0f;
+
+        isClimbing = HasVerticalSpeed() && bodyCol.IsTouchingLayers(climbingLayerMask);
+        onLadder = bodyCol.IsTouchingLayers(climbingLayerMask);
+    }
+    #endregion
+
+    #region Jumping Methods
     private void HandleJump()
     {
-        if (!isJumping && footCol.IsTouchingLayers(groundLayerMask))
-        {       
-            lastOnGroundTime = coyoteTime;
-        }
+        UpdateJumpTimers();
+        PerformJumpCheck();
 
-        lastPressedJumpTime -= Time.deltaTime;
-        lastOnGroundTime -= Time.deltaTime;
-        if(isJumping && rb.velocity.y < 0f)
-        {
-            isJumping = false;
-        }
+        ApplyJumpPhysics();
+    }
 
-        if(lastOnGroundTime > 0 && !isJumping)
+    private void ApplyJumpPhysics()
+    {
+        if (onLadder)
         {
-            isJumpCut = false;
+            SetGravityScale(0);
         }
-
-        if (isJumpCut)
+        else if (isJumpCut)
         {
-            //Gives the variable length feature
             SetGravityScale(DEFAULT_GRAVITY * jumpCutGravityMult);
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -maxFallSpeed));
         }
         else if (isJumping && Mathf.Abs(rb.velocity.y) < jumpHangSpeedThreshold)
         {
-            //Let player hang a bit for better transition to jumpCut gravity increase
             SetGravityScale(DEFAULT_GRAVITY * jumpHangGravityMult);
         }
         else if (rb.velocity.y < 0)
         {
-            //If the player is falling down increase the gravity a bit.
             SetGravityScale(DEFAULT_GRAVITY * fallGravityMult);
-            rb.velocity = new Vector2(rb.velocity.x, Mathf.Max(rb.velocity.y, -maxFallSpeed));
-            
         }
         else
         {
             SetGravityScale(DEFAULT_GRAVITY);
         }
+    }
 
+    private void PerformJumpCheck()
+    {
+        if (lastPressedJumpTime > 0 && Time.time - lastOnGroundTime <= coyoteTime)
+        {
+            Jump();
+            lastPressedJumpTime = 0;
+        }
+    }
+
+    private void Jump()
+    {
+        float force = jumpForce - Mathf.Min(rb.velocity.y, 0);
+        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
+        isJumping = true;
+        isJumpCut = false;
+    }
+    private void UpdateJumpTimers()
+    {
+        if (footCol.IsTouchingLayers(groundLayerMask))
+        {
+            lastOnGroundTime = Time.time;
+        }
+
+        if (lastPressedJumpTime > 0)
+        {
+            lastPressedJumpTime -= Time.deltaTime;
+        }
     }
 
     private void SetGravityScale(float value)
@@ -204,127 +259,31 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = value;
     }
 
-    private void OnJumpPerformed(object sender, EventArgs e)
-    {
-        /*
-         * I know this function may  seem very confusing. We check whether the player is grounded in HandleJump function.
-         * If the player is not jumping and on ground, we set lastOnGroundTime to coyoteTime.
-         * CanJump will check whether the player is in the air (isJumping), and other two variables.
-         * 
-         */
-        lastPressedJumpTime = jumpInputBufferTime;
-        if (!canMove || !isAlive || !CanJump()) return;
-        lastPressedJumpTime = 0f;
-        lastOnGroundTime = 0f;
-        float force = jumpForce;
-        if (rb.velocity.y < 0)
-            force -= rb.velocity.y;
-        
-        rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);  
-        isJumping = true;
-        isJumpCut = false;
-        
-    }
-
-    private bool CanJump()
-    {
-        return lastOnGroundTime > 0f && !isJumping && lastPressedJumpTime > 0f;
-    }
-
-    private void OnJumpCanceled(object sender, EventArgs e)
-    {
-        if (CanJumpCut())
-        {            
-            isJumpCut = true;
-        }
-    }
-
     private bool CanJumpCut()
     {
         return isJumping && rb.velocity.y > 0;
     }
 
 
-    public void Die()
-    {
-        if (bodyCol.IsTouchingLayers(enemiesLayerMask) || 
-            bodyCol.IsTouchingLayers(hazardLayerMask) ||
-            footCol.IsTouchingLayers(hazardLayerMask) ||
-            footCol.IsTouchingLayers(enemiesLayerMask))
-        {
-            canMove = false;
-            isAlive = false;
-            OnDied?.Invoke(this, EventArgs.Empty);
-            rb.velocity = deathKick;
-            bodyCol.enabled = false;
-            footCol.enabled = false;
-            gameManager.ChangeStateTo(GameManager.GameState.GAMEOVER);
+    #endregion
 
-        }
+    #region Jump Event Handlers
+    private void OnJumpPerformed(object sender, EventArgs e)
+    {
+        lastPressedJumpTime = jumpInputBufferTime;
     }
 
-    private void Walk()
+    private void OnJumpCanceled(object sender, EventArgs e)
     {
-        Vector2 movementVector = inputManager.GetMovementVector(); 
-
-        float targetSpeed = movementVector.x * runMaxSpeed;
-        targetSpeed = Mathf.Lerp(rb.velocity.x, targetSpeed, runLerpAmount);
-
-        float accelRate = (Mathf.Abs(targetSpeed) > 0.01f) ? runAccelAmount : runDeccelAmount;
-
-        float speedDif = targetSpeed - rb.velocity.x;
-
-        float movement = speedDif * accelRate;
-
-        rb.AddForce(movement * Vector2.right, ForceMode2D.Force);
-
-        if(accelRate == runAccelAmount)
+        if (CanJumpCut())
         {
-            if(Mathf.Abs(rb.velocity.x) > acclMovementThreshold)
-            {
-                isWalking = true;
-            }
-            else
-            {
-                isWalking = false;
-            }
-        }
-        else if (Mathf.Abs(rb.velocity.x) > declMovementThreshold)
-        {
-            isWalking = true;
-
-        }
-        else
-        {
-            isWalking = false;
+            isJumpCut = true;
         }
     }
+    #endregion
 
-    private void Climb()
-    {
-        if (!bodyCol.IsTouchingLayers(climbingLayerMask))
-        {
-            isClimbing = false;
 
-            rb.gravityScale = gravityScaleAtStart;
-            return;
-        }
-        Vector2 movementVector = inputManager.GetMovementVector();
-        Vector2 climbVelocity = new Vector2(rb.velocity.x, movementVector.y * climbSpeed);
-        rb.velocity = climbVelocity;
-        rb.gravityScale = 0f;
-
-        if (HasVerticalSpeed() && bodyCol.IsTouchingLayers(climbingLayerMask))
-        {
-            isClimbing = true;
-
-        }
-        else
-        {
-            isClimbing = false;
-        }
-    }
-
+    #region Shooting Methods
     private void HandleBowTension()
     {
         if (!isPullingBow)
@@ -339,7 +298,6 @@ public class PlayerController : MonoBehaviour
         shootingVelocity.x = Mathf.Clamp(shootingVelocity.x, minShootingVelocity.x, maxShootingVelocity.x);
         shootingVelocity.y = Mathf.Clamp(shootingVelocity.y, minShootingVelocity.y, maxShootingVelocity.y);
 
-
         if (shootingVelocity.x >= maxShootingVelocity.x && shootingVelocity.y >= maxShootingVelocity.y)
         {
             OnMaximumBowTensionReached?.Invoke(this, EventArgs.Empty);
@@ -347,7 +305,6 @@ public class PlayerController : MonoBehaviour
             shootingVelocity = minShootingVelocity;
         }
     }
-
 
     private void OnShootCanceled(object sender, EventArgs e)
     {
@@ -357,15 +314,10 @@ public class PlayerController : MonoBehaviour
     private void OnShootPerformed(object sender, EventArgs e)
     {
         if (!canMove || !isAlive) return;
+
         canMove = false;
-        if (!isClimbing)
-        {
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = Vector2.zero;
-        }
+        rb.velocity = isClimbing ? Vector2.zero : new Vector2(0, rb.velocity.y);
+
         isWalking = false;
         isClimbing = false;
         isPullingBow = true;
@@ -375,15 +327,46 @@ public class PlayerController : MonoBehaviour
     {
         Transform arrow = Instantiate(gameManager.GetComponent<GameAssets>().GetArrow(), gunTransform.position, Quaternion.identity);
         arrow.gameObject.SetActive(true);
+
         float direction = Mathf.Sign(transform.localScale.x);
         arrow.GetComponent<Arrow>().SetVelocity(new Vector2((direction * shootingVelocity.x), shootingVelocity.y));
-        //Add knocback
+
         Vector2 knockBackForce = new Vector2(-direction * knockBackSpeed, 0);
         rb.AddForce(knockBackForce, ForceMode2D.Impulse);
+    }
+    #endregion
 
+    #region Death Methods
+    private void CheckForDeath()
+    {
+        if (IsTouchingLayers(bodyCol, enemiesLayerMask, hazardLayerMask) || IsTouchingLayers(footCol, hazardLayerMask))
+        {
+            Die();
+        }
     }
 
+    private void Die()
+    {
+        canMove = false;
+        isAlive = false;
+        OnDied?.Invoke(this, EventArgs.Empty);
+        rb.velocity = deathKick;
+        bodyCol.enabled = false;
+        footCol.enabled = false;
+        gameManager.ChangeStateTo(GameManager.GameState.GAMEOVER);
+    }
+    #endregion
 
+    #region Helper Methods
+    private bool IsTouchingLayers(Collider2D collider, LayerMask layerMask1, LayerMask layerMask2)
+    {
+        return collider.IsTouchingLayers(layerMask1) || collider.IsTouchingLayers(layerMask2);
+    }
+
+    private bool IsTouchingLayers(Collider2D collider, LayerMask layerMask1)
+    {
+        return collider.IsTouchingLayers(layerMask1);
+    }
     private void FlipSprite()
     {
         if (!IsWalking()) return;
@@ -392,8 +375,7 @@ public class PlayerController : MonoBehaviour
 
     private bool HasVerticalSpeed()
     {
-        bool playerHasVerticalSpeed = Math.Abs(rb.velocity.y) > Mathf.Epsilon;
-        return playerHasVerticalSpeed;
+        return Math.Abs(rb.velocity.y) > Mathf.Epsilon;
     }
 
     public bool IsWalking()
@@ -410,9 +392,5 @@ public class PlayerController : MonoBehaviour
     {
         canMove = newValue;
     }
-
-
-
-
-
+    #endregion
 }
