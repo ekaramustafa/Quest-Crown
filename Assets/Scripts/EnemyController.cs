@@ -4,31 +4,29 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+    public event EventHandler OnDamageTaken;
+
     private Rigidbody2D rb;
     private bool isKnockedBack = false;
-    private bool isMovingRight;
+    private Vector3 previousPosition;
 
     [Header("Other params")]
     [SerializeField] private float health = 100f;
     [SerializeField] private float knockBackDuration = 0.5f;
 
-    [Space(5)]
     [Header("Patrolling")]
     [SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float patrollingRayDistance = 2f;
     [SerializeField] private LayerMask patrollingLayers;
     [SerializeField] private LayerMask avoidLayers;
 
-    [Space(5)]
     [Header("Transforms")]
-    [SerializeField] private Transform patrolGroundDetection;
-
-    public event EventHandler OnDamageTaken;
+    [SerializeField] private Transform groundDetection;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        isMovingRight = true;
+        previousPosition = transform.position;
     }
 
     private void Update()
@@ -40,31 +38,24 @@ public class EnemyController : MonoBehaviour
 
     private void Patrol()
     {
-        if (isMovingRight)
-        {
-            rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
-        }
-        else
-        {
-            rb.velocity = new Vector2(-movementSpeed, rb.velocity.y);
-        }
-
+        rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
         FlipSpriteIfNeeded();
     }
 
     private void FlipSpriteIfNeeded()
     {
-        RaycastHit2D patrolInfo = Physics2D.Raycast(patrolGroundDetection.position, Vector2.down, patrollingRayDistance,patrollingLayers);
-        RaycastHit2D groundInfo = Physics2D.Raycast(patrolGroundDetection.position, Vector2.down, patrollingRayDistance, avoidLayers);
-        if (patrolInfo.collider == null || groundInfo.collider != null)
+        bool needsFlip = !Physics2D.Raycast(groundDetection.position, Vector2.down, patrollingRayDistance, patrollingLayers) ||
+                          Physics2D.Raycast(groundDetection.position, Vector2.down, patrollingRayDistance, avoidLayers);
+
+        if (needsFlip)
         {
+            movementSpeed = -movementSpeed;
             Flip();
         }
     }
 
     private void Flip()
     {
-        isMovingRight = !isMovingRight;
         Vector3 scaler = transform.localScale;
         scaler.x *= -1;
         transform.localScale = scaler;

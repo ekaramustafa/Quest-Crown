@@ -260,4 +260,4 @@ MonoBehaviour:
   avoidLayers:
     serializedVersion: 2
     m_Bits: 30976
-  patrolGroundDetection: {fileID: 3976741175141291854}
+  groundDetection: {fileID: 3976741175141291854}

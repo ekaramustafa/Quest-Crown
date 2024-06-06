@@ -232,18 +232,18 @@ MonoBehaviour:
   jumpInputBufferTime: 0.1
   jumpCutGravityMult: 1.75
   fallGravityMult: 2.25
-  maxFallSpeed: 30
   jumpHangSpeedThreshold: 1
   jumpHangGravityMult: 0.8
+  maxVerticalVelocity: 35
   maxShootingVelocity: {x: 30, y: 15}
   minShootingVelocity: {x: 15, y: 5}
   tensionIncreaseRate: {x: 5, y: 5}
-  runMaxSpeed: 10
-  runLerpAmount: 1
-  runAccelAmount: 7
-  runDeccelAmount: 15
-  acclMovementThreshold: 0.01
-  declMovementThreshold: 2
+  walkMaxSpeed: 10
+  walkLerpAmount: 2
+  walkAccelAmount: 7
+  walkDeccelAmount: 7
+  walkAcclMovementThreshold: 0.01
+  walkDeclMovementThreshold: 2
   climbSpeed: 6
   knockBackSpeed: 20
   deathKick: {x: 0, y: 10}

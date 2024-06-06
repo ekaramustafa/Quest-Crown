@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float fallGravityMult = 2.5f;
     [SerializeField] private float jumpHangSpeedThreshold = 1f;
     [SerializeField] private float jumpHangGravityMult = 0.8f;
+    [SerializeField] private float maxVerticalVelocity = 35f;
 
     private float lastPressedJumpTime;
     private float lastOnGroundTime;
@@ -222,6 +223,9 @@ public class PlayerController : MonoBehaviour
         {
             SetGravityScale(DEFAULT_GRAVITY);
         }
+
+        rb.velocity = new Vector2(rb.velocity.x, Mathf.Sign(rb.velocity.y) * Mathf.Min(Mathf.Abs(rb.velocity.y), maxVerticalVelocity));
+         
     }
 
     private void PerformJumpCheck()
@@ -339,7 +343,7 @@ public class PlayerController : MonoBehaviour
     #region Death Methods
     private void CheckForDeath()
     {
-        if (IsTouchingLayers(bodyCol, enemiesLayerMask, hazardLayerMask) || IsTouchingLayers(footCol, hazardLayerMask))
+        if (IsTouchingLayers(bodyCol, enemiesLayerMask, hazardLayerMask) || IsTouchingLayers(footCol, hazardLayerMask, enemiesLayerMask))
         {
             Die();
         }
