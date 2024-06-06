@@ -134,6 +134,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   effectMagnitude: 1
+--- !u!1 &8019128162581235692
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3976741175141291854}
+  m_Layer: 12
+  m_Name: Ground Detection
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3976741175141291854
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8019128162581235692}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.639, y: -0.296, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8977706257488661630}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8977706257488661628
 GameObject:
   m_ObjectHideFlags: 0
@@ -146,7 +177,6 @@ GameObject:
   - component: {fileID: 1865041814742705314}
   - component: {fileID: -7727397722937929933}
   - component: {fileID: 8024583086006296740}
-  - component: {fileID: 1920111963}
   m_Layer: 12
   m_Name: Enemy
   m_TagString: Untagged
@@ -167,6 +197,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4380233607504687893}
+  - {fileID: 3976741175141291854}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -219,32 +250,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77504adeff8ef934fbec60ff295e6556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 1
   health: 100
   knockBackDuration: 0.5
---- !u!61 &1920111963
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8977706257488661628}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.34, y: -0.29}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.75, y: 0.875}
-    newSize: {x: 1, y: 0.90625}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.059, y: 0.67}
-  m_EdgeRadius: 0
+  movementSpeed: 1
+  patrollingRayDistance: 2
+  patrollingLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  avoidLayers:
+    serializedVersion: 2
+    m_Bits: 30976
+  patrolGroundDetection: {fileID: 3976741175141291854}
