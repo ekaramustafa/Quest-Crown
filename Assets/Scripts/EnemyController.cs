@@ -1,45 +1,73 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EnemyController : MonoBehaviour
 {
     private Rigidbody2D rb;
-    private BoxCollider2D boxCollider;
     private bool isKnockedBack = false;
-    [Header("Tunable Parameters")]
-    [SerializeField] private float movementSpeed = 1f;
+    private bool isMovingRight;
+
+    [Header("Other params")]
     [SerializeField] private float health = 100f;
     [SerializeField] private float knockBackDuration = 0.5f;
+
+    [Space(5)]
+    [Header("Patrolling")]
+    [SerializeField] private float movementSpeed = 1f;
+    [SerializeField] private float patrollingRayDistance = 2f;
+    [SerializeField] private LayerMask patrollingLayers;
+    [SerializeField] private LayerMask avoidLayers;
+
+    [Space(5)]
+    [Header("Transforms")]
+    [SerializeField] private Transform patrolGroundDetection;
 
     public event EventHandler OnDamageTaken;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
+        isMovingRight = true;
     }
 
     private void Update()
     {
-        if (!isKnockedBack)
+        if (isKnockedBack) return;
+
+        Patrol();
+    }
+
+    private void Patrol()
+    {
+        if (isMovingRight)
         {
-            rb.velocity = new Vector2(movementSpeed, 0f);
+            rb.velocity = new Vector2(movementSpeed, rb.velocity.y);
+        }
+        else
+        {
+            rb.velocity = new Vector2(-movementSpeed, rb.velocity.y);
+        }
+
+        FlipSpriteIfNeeded();
+    }
+
+    private void FlipSpriteIfNeeded()
+    {
+        RaycastHit2D patrolInfo = Physics2D.Raycast(patrolGroundDetection.position, Vector2.down, patrollingRayDistance,patrollingLayers);
+        RaycastHit2D groundInfo = Physics2D.Raycast(patrolGroundDetection.position, Vector2.down, patrollingRayDistance, avoidLayers);
+        if (patrolInfo.collider == null || groundInfo.collider != null)
+        {
+            Flip();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void Flip()
     {
-        movementSpeed = -movementSpeed;
-        FlipSprite();
-    }
-
-    private void FlipSprite()
-    {
-        float sign = -Mathf.Sign(rb.velocity.x);
-        transform.localScale = new Vector2(sign, 1f);
-
+        isMovingRight = !isMovingRight;
+        Vector3 scaler = transform.localScale;
+        scaler.x *= -1;
+        transform.localScale = scaler;
     }
 
     public void TakeDamage(float damage, Vector2 knockBack)
@@ -48,7 +76,7 @@ public class EnemyController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
         else
         {
@@ -63,5 +91,4 @@ public class EnemyController : MonoBehaviour
         yield return new WaitForSeconds(knockBackDuration);
         isKnockedBack = false;
     }
-
 }
