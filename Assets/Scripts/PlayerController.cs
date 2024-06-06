@@ -49,8 +49,8 @@ public class PlayerController : MonoBehaviour
     #region Shooting Variables
     private Vector2 shootingVelocity;
     [Header("Shooting")]
-    [SerializeField] private Vector2 maxShootingVelocity = new Vector2(30f, 15f);
-    [SerializeField] private Vector2 minShootingVelocity = new Vector2(15f, 5f);
+    [SerializeField] private Vector2 maxShootingVelocity = new Vector2(40f, 10f);
+    [SerializeField] private Vector2 minShootingVelocity = new Vector2(25f, 5f);
     [SerializeField] private Vector2 tensionIncreaseRate = new Vector2(5f, 5f);
     #endregion
 
