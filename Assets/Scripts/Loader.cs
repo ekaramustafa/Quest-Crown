@@ -7,7 +7,6 @@ public static class Loader
         MainMenu,
         Loading,
         GameScene,
-
     }
 
     private static Scene targetScene;
