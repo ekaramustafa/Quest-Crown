@@ -1039,6 +1039,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   retryButton: {fileID: 716676976}
+  backButton: {fileID: 1727787928}
+  exitButton: {fileID: 1318992412}
 --- !u!1 &600166861
 GameObject:
   m_ObjectHideFlags: 0
@@ -28754,7 +28756,7 @@ PrefabInstance:
       objectReference: {fileID: 600166866}
     - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: orthographic size
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 315987816486818021, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_LocalPosition.x
