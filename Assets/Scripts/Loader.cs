@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using UnityEngine.SceneManagement;
 public static class Loader
 {
@@ -26,6 +27,7 @@ public static class Loader
 
     public static void LoadLevel(int level)
     {
+        
         string levelString = "Level";
         levelString += level.ToString();
         currentLevel = levelString;

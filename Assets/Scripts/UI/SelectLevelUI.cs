@@ -23,7 +23,6 @@ public class SelectLevelUI : MonoBehaviour
             textMeshPros.Add(button.GetComponent<TextMeshProUGUI>());
         }
         VerifyLevelPref();
-        SetupClickDelegates();
     }
     private void Start()
     {
@@ -36,6 +35,7 @@ public class SelectLevelUI : MonoBehaviour
             Color currentColor = textMeshPro.color;
             textMeshPro.color = new Color(currentColor.r, currentColor.b, currentColor.g, 1f);
         }
+        SetupClickDelegates();
     }
 
 
@@ -58,11 +58,13 @@ public class SelectLevelUI : MonoBehaviour
 
     private void SetupClickDelegates()
     {
+        Debug.Log(maxLevel);
         for(int i=0;i<maxLevel; i++)
         {
-            buttons[i].GetComponent<Button_UI>().ClickFunc = () =>
+            int levelIndex = i + 1;
+            buttons[i].GetChild(0).GetComponent<Button_UI>().ClickFunc = () =>
             {
-                Loader.LoadLevel(i + 1);
+                Loader.LoadLevel(levelIndex);
             };
         }
     }
