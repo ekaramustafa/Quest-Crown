@@ -1,12 +1,15 @@
+using System;
 using UnityEngine.SceneManagement;
 public static class Loader
 {
+    public const string MAX_LEVEL = "MAX_LEVEL";
 
+    private static string currentLevel = "";
     public enum Scene
     {
         MainMenu,
+        LevelSelectorMenu,
         Loading,
-        GameScene,
     }
 
     private static Scene targetScene;
@@ -19,5 +22,19 @@ public static class Loader
     public static void LoadTargetScene()
     {
         SceneManager.LoadScene(targetScene.ToString());
+    }
+
+    public static void LoadLevel(int level)
+    {
+        string levelString = "Level";
+        levelString += level.ToString();
+        currentLevel = levelString;
+        SceneManager.LoadScene(levelString);
+    }
+
+
+    public static void LoadCurrentLevel()
+    {
+        SceneManager.LoadScene(currentLevel);
     }
 }

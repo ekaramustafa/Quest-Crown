@@ -14,7 +14,7 @@ public class MenuUI : MonoBehaviour
     private void Awake()
     {
         startButton.GetComponent<Button_UI>().ClickFunc = () => {
-            Loader.Load(Loader.Scene.GameScene);
+            Loader.Load(Loader.Scene.LevelSelectorMenu);
         };
 
         exitButton.GetComponent<Button_UI>().ClickFunc = () => {
