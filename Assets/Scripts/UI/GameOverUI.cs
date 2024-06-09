@@ -9,6 +9,9 @@ public class GameOverUI : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] private Transform retryButton;
+    [SerializeField] private Transform backButton;
+    [SerializeField] private Transform exitButton;
+
 
     private void Start()
     {
@@ -19,6 +22,11 @@ public class GameOverUI : MonoBehaviour
         retryButton.GetComponent<Button_UI>().ClickFunc = () =>
         {
             Loader.Load(Loader.Scene.GameScene);
+        };
+
+        exitButton.GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            Application.Quit();
         };
     }
 
