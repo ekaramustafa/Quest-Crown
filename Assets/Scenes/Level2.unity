@@ -300,8 +300,7 @@ GameObject:
   - component: {fileID: 50978722}
   - component: {fileID: 50978723}
   - component: {fileID: 50978724}
-  - component: {fileID: 50978725}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: FinishLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -334,10 +333,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.87547684, y: 3.105033}
+  m_Offset: {x: -0.36660957, y: 3.1050327}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -348,7 +347,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.4134521, y: 10.804462}
+  m_Size: {x: 4.897625, y: 10.804462}
   m_EdgeRadius: 0
 --- !u!114 &50978724
 MonoBehaviour:
@@ -365,27 +364,6 @@ MonoBehaviour:
   playerLayerMask:
     serializedVersion: 2
     m_Bits: 512
---- !u!50 &50978725
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50978721}
-  m_BodyType: 2
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!1 &84068653
 GameObject:
   m_ObjectHideFlags: 0
@@ -28796,7 +28774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1011504010}
   - component: {fileID: 1011504011}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28856,8 +28834,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1173040135
-  m_SortingLayer: 7
+  m_SortingLayerID: 1957860169
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: f828089e664ac414eb5d934ec721a75f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -28937,7 +28915,15 @@ PrefabInstance:
       objectReference: {fileID: 600166866}
     - target: {fileID: 315987816486818020, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: orthographic size
-      value: 6
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816486818021, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 315987816486818021, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 315987817269177725, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_BoundingShape2D
@@ -28947,21 +28933,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCameraGroup
       objectReference: {fileID: 0}
-    - target: {fileID: 315987817444813267, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
-      propertyPath: m_Layer
-      value: 9
-      objectReference: {fileID: 0}
     - target: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 52.06
+      value: 7.41
       objectReference: {fileID: 0}
     - target: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.02
+      value: 3.24
       objectReference: {fileID: 0}
     - target: {fileID: 315987817444813276, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_LocalPosition.z
@@ -28999,6 +28981,14 @@ PrefabInstance:
       propertyPath: m_BoundingShape2D
       value: 
       objectReference: {fileID: 600166866}
+    - target: {fileID: 2602554894225356829, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: coyoteTime
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2602554894225356829, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
+      propertyPath: maxVerticalVelocity
+      value: 35
+      objectReference: {fileID: 0}
     - target: {fileID: 9040612756787400112, guid: b2d632396bc88d84082a6595d18224fe, type: 3}
       propertyPath: m_Cameras.Array.data[0]
       value: 

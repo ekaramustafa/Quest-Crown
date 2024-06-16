@@ -396,5 +396,12 @@ public class PlayerController : MonoBehaviour
     {
         canMove = newValue;
     }
+
+    public void StopPlayer()
+    {
+        isWalking = false;
+        isClimbing = false;
+        rb.velocity = new Vector2(0f, rb.velocity.y);
+    }
     #endregion
 }

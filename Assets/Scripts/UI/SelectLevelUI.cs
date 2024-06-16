@@ -49,7 +49,7 @@ public class SelectLevelUI : MonoBehaviour
         }
     }
 
-    public static void VerifyLevelPref()
+    public void VerifyLevelPref()
     {
         if (PlayerPrefs.HasKey(Loader.MAX_LEVEL)) return;
         PlayerPrefs.SetInt(Loader.MAX_LEVEL, 1);

@@ -28,6 +28,11 @@ public class GameOverUI : MonoBehaviour
         {
             Application.Quit();
         };
+
+        backButton.GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            Loader.Load(Loader.Scene.LevelSelectorMenu);
+        };
     }
 
     private void OnPlayerDied(object sender, System.EventArgs e)
