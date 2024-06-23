@@ -21,12 +21,17 @@ public class GameOverUI : MonoBehaviour
 
         retryButton.GetComponent<Button_UI>().ClickFunc = () =>
         {
-            Loader.Load(Loader.Scene.GameScene);
+            Loader.LoadCurrentLevel();
         };
 
         exitButton.GetComponent<Button_UI>().ClickFunc = () =>
         {
             Application.Quit();
+        };
+
+        backButton.GetComponent<Button_UI>().ClickFunc = () =>
+        {
+            Loader.Load(Loader.Scene.LevelSelectorMenu);
         };
     }
 

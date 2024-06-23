@@ -212,9 +212,9 @@ TextureImporter:
       name: UI books & more_5
       rect:
         serializedVersion: 2
-        x: 464
+        x: 512
         y: 401
-        width: 96
+        width: 47
         height: 62
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -5068,7 +5068,7 @@ TextureImporter:
         width: 32
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -5117,8 +5117,8 @@ TextureImporter:
       UI books & more_7: -2067338120
       UI books & more_216: -388185876
       UI books & more_157: 743504703
-      UI books & more_65: 1028477464
       UI books & more_167: -1369653215
+      UI books & more_65: 1028477464
       UI books & more_93: 141852493
       UI books & more_154: -575977662
       UI books & more_5: 1753258225
@@ -5210,8 +5210,8 @@ TextureImporter:
       UI books & more_162: -803757178
       UI books & more_77: 513792794
       UI books & more_203: -1868055565
-      UI books & more_145: 1348167587
       UI books & more_217: -1622159063
+      UI books & more_145: 1348167587
       UI books & more_149: 173744203
       UI books & more_89: 211637862
       UI books & more_173: 790913101
