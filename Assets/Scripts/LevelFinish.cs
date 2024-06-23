@@ -50,6 +50,8 @@ public class LevelFinish : MonoBehaviour
         player.SetCanMove(false);
         player.StopPlayer();
         yield return new WaitForSeconds(2f);
+        Debug.Log(Loader.MAX_LEVEL);
+        Debug.Log(Loader.currentLevelInteger);
         Loader.LoadNextLevel();
     }
 }

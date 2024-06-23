@@ -17,6 +17,8 @@ public class SelectLevelUI : MonoBehaviour
 
     private void Awake()
     {
+        PlayerPrefs.SetInt(Loader.MAX_LEVEL, 1);
+        PlayerPrefs.Save();
         textMeshPros = new List<TextMeshProUGUI>();
         foreach(Transform button in buttons)
         {
