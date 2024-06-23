@@ -16,9 +16,10 @@ public class MenuUI : MonoBehaviour
         startButton.GetComponent<Button_UI>().ClickFunc = () => {
             Loader.LoadLevelSelector();
         };
-
+        startButton.GetComponent<Button_UI>().AddButtonSounds();
         exitButton.GetComponent<Button_UI>().ClickFunc = () => {
             Application.Quit();
         };
+        exitButton.GetComponent<Button_UI>().AddButtonSounds();
     }
 }

@@ -34,6 +34,7 @@ public class LevelFinish : MonoBehaviour
             if (col.enabled)
             {            
                 player = collision.gameObject.GetComponent<PlayerController>();
+                SoundManager.PlaySound(SoundManager.Sound.Success);
                 StartCoroutine(NextLevelCoroutine());
             }
             else

@@ -58,7 +58,6 @@ public class SelectLevelUI : MonoBehaviour
 
     private void SetupClickDelegates()
     {
-        Debug.Log(maxLevel);
         for(int i=0;i<maxLevel; i++)
         {
             int levelIndex = i + 1;
@@ -66,6 +65,7 @@ public class SelectLevelUI : MonoBehaviour
             {
                 Loader.LoadLevel(levelIndex);
             };
+            buttons[i].GetChild(0).GetComponent<Button_UI>().AddButtonSounds();
         }
     }
 

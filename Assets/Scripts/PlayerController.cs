@@ -171,6 +171,7 @@ public class PlayerController : MonoBehaviour
 
         isWalking = (accelRate == walkAccelAmount && Mathf.Abs(rb.velocity.x) > walkAcclMovementThreshold) ||
                     (Mathf.Abs(rb.velocity.x) > walkDeclMovementThreshold);
+
     }
 
     private void Climb()
@@ -243,6 +244,7 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         isJumping = true;
         isJumpCut = false;
+        SoundManager.PlaySound(SoundManager.Sound.Jump);
     }
     private void UpdateJumpTimers()
     {
@@ -337,6 +339,7 @@ public class PlayerController : MonoBehaviour
 
         Vector2 knockBackForce = new Vector2(-direction * knockBackSpeed, 0);
         rb.AddForce(knockBackForce, ForceMode2D.Impulse);
+        SoundManager.PlaySound(SoundManager.Sound.ArrowShooting);
     }
     #endregion
 
@@ -358,6 +361,7 @@ public class PlayerController : MonoBehaviour
         bodyCol.enabled = false;
         footCol.enabled = false;
         gameManager.ChangeStateTo(GameManager.GameState.GAMEOVER);
+        SoundManager.PlaySound(SoundManager.Sound.Death);
     }
     #endregion
 

@@ -6689,6 +6689,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrow: {fileID: 7916256093991758160, guid: dbae82f9e13bdbc45bccfc55af9ba89f, type: 3}
+  audioClips:
+  - sound: 1
+    audioClip: {fileID: 8300000, guid: 3e1be9b4a51db534fa6a044631ef0c76, type: 3}
+  - sound: 0
+    audioClip: {fileID: 8300000, guid: 10b869733fb0c394aacb2053c2dc5343, type: 3}
+  - sound: 2
+    audioClip: {fileID: 8300000, guid: 8201ccfb629db7344a4d942a55411c1c, type: 3}
+  - sound: 3
+    audioClip: {fileID: 8300000, guid: d53b4b539d5e16c4a8ab3cbb41d303dd, type: 3}
+  - sound: 6
+    audioClip: {fileID: 8300000, guid: 7ace546285d24d247b91d1f10f8fd3b3, type: 3}
+  - sound: 5
+    audioClip: {fileID: 8300000, guid: 4a5ec0d779d00784787f95796eb7ca1b, type: 3}
+  - sound: 4
+    audioClip: {fileID: 8300000, guid: 253a3668da1ec7040b040418afdbed74, type: 3}
 --- !u!1 &716815632
 GameObject:
   m_ObjectHideFlags: 0

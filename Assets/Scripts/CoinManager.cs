@@ -28,6 +28,7 @@ public class CoinManager : MonoBehaviour
 
     public void CollectCoin()
     {
+        SoundManager.PlaySound(SoundManager.Sound.CoinCollect);
         OnCoinCollected?.Invoke(this, EventArgs.Empty);
     }
 
