@@ -11,6 +11,9 @@ public class LevelFinish : MonoBehaviour
     private PlayerController player;
     private Collider2D col;
 
+
+    private bool isTrigerred = false;
+
     private void Awake()
     {
         col = GetComponent<Collider2D>();
@@ -29,17 +32,20 @@ public class LevelFinish : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (isTrigerred) return;
         if ((playerLayerMask.value & (1 << collision.gameObject.layer)) != 0)
         {
+
             if (col.enabled)
-            {            
+            {
+                isTrigerred = true;
                 player = collision.gameObject.GetComponent<PlayerController>();
                 SoundManager.PlaySound(SoundManager.Sound.Success);
                 StartCoroutine(NextLevelCoroutine());
             }
             else
             {
-                //Give some feedback to the player
+                SoundManager.PlaySound(SoundManager.Sound.Rejection);
             }
 
         }
@@ -50,8 +56,7 @@ public class LevelFinish : MonoBehaviour
         player.SetCanMove(false);
         player.StopPlayer();
         yield return new WaitForSeconds(2f);
-        Debug.Log(Loader.MAX_LEVEL);
-        Debug.Log(Loader.currentLevelInteger);
         Loader.LoadNextLevel();
+        isTrigerred = false;
     }
 }
