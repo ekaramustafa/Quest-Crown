@@ -6,7 +6,7 @@ public static class Loader
 {
     public const string MAX_LEVEL = "MAX_LEVEL";
 
-    private static string currentLevel = "";
+    private static string currentLevel = "Level1";
     private static int currentLevelInteger = 1;
     public enum Scene
     {
